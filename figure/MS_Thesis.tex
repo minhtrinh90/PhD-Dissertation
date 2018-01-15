@@ -1,0 +1,1445 @@
+%!TEX encoding = system 
+\documentclass[final]{gist}
+%\linespread{1}
+% The following packages can be found on http:\\www.ctan.org
+\usepackage{graphics} % for pdf, bitmapped graphics files
+\usepackage{subfig}
+\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+\usepackage{times} % assumes new font selection scheme installed
+\usepackage{amsmath,amssymb,mathrsfs}
+\usepackage{enumerate}
+\usepackage{theorem} % for \theorembodyfont
+\usepackage{cite}
+\usepackage{textcomp}
+%\usepackage[]{algorithm2e}
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup{labelsep=period} % change ':' to '.' in the figure-caption
+% 그림 하위 경로
+\graphicspath{{figure/}}
+
+
+% 사용자 정의 command
+%\newcommand{\bem}{\begin{matrix}}
+%\newcommand{\bbm}{\begin{bmatrix}}
+%\newcommand{\bpm}{\begin{pmatrix}}
+%\newcommand{\bvm}{\begin{vmatrix}}
+%\newcommand{\ebm}{\end{bmatrix}}
+%\newcommand{\eem}{\end{matrix}}
+%\newcommand{\epm}{\end{pmatrix}}
+%\newcommand{\evm}{\end{vmatrix}}
+%\newcommand{\mbf}{\mathbf}
+%\newcommand{\set}{\mathcal}
+%\newcommand{\graph}{\mathcal{G}}
+%\newcommand{\vs}{\mathbb}
+%\newcommand{\pd}{\partial}
+%\newcommand{\ud}{\mathrm{d}}
+%\newcommand{\vecl}{\overrightarrow}
+%
+%\newcommand{\plotSize}{0.65\textwidth}
+%
+%\newcommand{\TRUE}{1}
+%\newcommand{\FALSE}{0}
+%\newcommand{\includeComments}{\FALSE}		% 주석 포함여부 결정
+%
+%% Roman partial derivative
+%\DeclareSymbolFont{UPM}{U}{eur}{m}{n}
+%\DeclareMathSymbol{\up}{0}{UPM}{"40}
+%
+%\DeclareMathOperator{\mydet}{\mathsf{det}}
+%\DeclareMathOperator{\mymin}{\mathsf{min}}
+%\DeclareMathOperator{\mysup}{\mathsf{sup}}
+%\DeclareMathOperator{\dist}{{dist}}
+%\DeclareMathOperator{\modulo}{{modulo}}
+%\DeclareMathOperator{\rank}{{rank}}
+%\DeclareMathOperator{\trace}{{trace}}
+%\DeclareMathOperator{\tp}{\mathsf{T}}
+%
+%\renewcommand{\up}{\partial}
+%\renewcommand{\det}{\mydet}
+%\renewcommand{\min}{\mymin}
+%\renewcommand{\sup}{\mysup}
+
+
+%\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{}{n}
+
+% 수학 정리
+%\theorembodyfont{\upshape} % 정리를 로만체로 씀 required "theorem" package
+\renewcommand{\thefootnote}{\arabic{footnote}}
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{definition}[lemma]{Definition}
+\newtheorem{assumption}{Assumption}[chapter]
+\newtheorem{problem}{Problem}[chapter]
+\newtheorem{remark}[lemma]{Remark}
+\newtheorem{theorem}[lemma]{Theorem}
+\newtheorem{corollary}[lemma]{Corollary}
+\newtheorem{proposition}[lemma]{Proposition}
+%\newtheorem{corollary}{Corollary}[chapter]
+
+% proof environment
+\def\QED{\mbox{\rule[0pt]{1.3ex}{1.3ex}}}
+\def\proof{\noindent\hspace{2em}{\itshape Proof: }}
+\def\endproof{\hspace*{\fill}~\QED\par\endtrivlist\unskip}
+
+% For references name sorting
+\makeatletter
+\def\bstctlcite#1{\@bsphack
+\@for\@citeb:=#1\do{%
+\edef\@citeb{\expandafter\@firstofone\@citeb}%
+\if@filesw\immediate\write\@auxout{\string\citat
+ion{\@citeb}}\fi}%
+\@esphack}
+\makeatother
+
+
+\font\tenrm=cmtt10
+\input cap_c
+
+\input epsf
+\def\putepsf#1{\centering \parbox{14cm}{\epsfxsize = 14cm \epsfbox{#1}}}
+
+
+%-----------------------------------------------------------------
+% Department code list
+% IC - Information and Communications
+% MS - Materials Science and Engineering
+% ME - Mechatronics
+% ES - Environmental Science and Engineering
+% LS - Life Science
+% Department code
+% Modify if you are not ME.
+\code{{MS/}ME}
+
+%-----------------------------------------------------------------
+% Thesis title in English
+% Insert \titlebreak where lines are to be separated.  Do not use the LaTeX command '\\'.
+\etitle{Formation Control and Guidance using \titlebreak Bearing-only Measurements}
+
+%-----------------------------------------------------------------
+% Thesis title in Korean
+
+% Insert \titlebreak where lines are to be separated.  Do not use the LaTeX command '\\'.
+
+%-----------------------------------------------------------------
+% Advisor's name in English without a position such as 'Prof.'.
+\advisor{Hyo-Sung Ahn}
+
+%-----------------------------------------------------------------
+% Advisor's name in Korean without a position such as 'Prof.'.
+\kadvisor{안효성}
+
+%-----------------------------------------------------------------
+% Co-advisor's name in English
+% In case there is no co-advisor, comment out the following line with a "%" in the front.
+%\coadvisor{Kwang-Kyo Oh}
+
+%-----------------------------------------------------------------
+% Name of the author in English
+\ename{Minh Hoang Trinh}
+
+%-----------------------------------------------------------------
+% Name of the author in Korean seperated with '{}'.
+\kname{Minh Hoang Trinh}
+%-----------------------------------------------------------------
+% Student ID of the author
+\studentid{20131236}
+
+%-----------------------------------------------------------------
+% The year of graduation (ex. 1999)
+\coveryear{2014}
+
+%-----------------------------------------------------------------
+% The date signed by the advisor.  The first is the month, second the date, and third the year.
+\advisorsigndate{November}{30}{2014}
+
+%-----------------------------------------------------------------
+% The date signed by the referees.  The first is the month, second the date, and third the year.
+\refereesigndate{November}{30}{2014}
+
+%-----------------------------------------------------------------
+% Names of the referees in English
+% For Master's thesis, input the names of the three referees (refereeA thru referee C) in full.
+% For Ph.D thesis, input the names of the five referees (refereeA thru referee E) in full.
+% For most cases, refereeA is the same as the advisor.
+\refereeA{Prof. Hyo-Sung Ahn}
+\refereeB{Prof. }
+\refereeC{Prof. }
+%\refereeD{Prof. Alex RefereeD}%For Ph.D thesis, remove "%" in the front.
+%\refereeE{Prof. John RefereeE}% For Ph.D thesis, remove "%" in the front.
+
+%-----------------------------------------------------------------
+% This is the beginning of the thesis.
+
+\dedication{\textit{\Large{Dedicated to my family.}}}
+
+
+
+\usepackage{hyperref}	
+\hypersetup{%
+colorlinks=false,
+pdfborder={0.5 0.5 0.5}
+}
+
+\begin{document}
+%-----------------------------------------------------------------
+% Abstract of the thesis in English.
+% Insert the abstract between \begin{eabstract} and \end{eabstract}.
+% You can either write the abstract directly here or import a file using the \input command.
+\begin{eabstract}
+
+In this thesis, we study formation control and guidance control algorithms using only bearing measurements. First, an angle based leader--follower formation control problem is presented. In this problem, there are three leaders which have access to global positions. The other agents are followers which sense relative bearing measurements with regard to three neighbors. We propose a control strategy for leaders and followers. Under the proposed control law, the formation shape is proved to be locally asymptotically stable by mathematical induction. Second, we study a guidance problem with three stationary beacons. An agent wants to navigate to its desired position in the plane. We develop a control law using bearing vectors and the subtended bearing angles to guide the agent asymptotically to its destination. Lastly, we consider a guidance problem with $N$ beacons on the $n$ dimensional space. An agent wants to reach the point that minimizes the weighted sum of distances to $N$ stationary beacons. This problem is usually known as the Fermat--Weber location problem. Different from existing solutions in literature, we propose a continuous time control law using only bearing vectors to steer an agent to the solution of this problem. Moreover, when the beacons are moving exponentially fast to their desired positions, a corresponding control law is also provided. Our analyses are based on Lyapunov theory and input-to-state stability for cascade system. Simulations and hardware experiments are included to validate our theoretical results. 
+
+
+\end{eabstract}
+
+
+%-----------------------------------------------------------------
+% Table of contents, list of tables and list of figures.
+% Use the \makecontents command to automatically generate the table of content
+\makecontents
+% In case there is no table, comment out the following line.
+\listtables
+% In case there is no figure, comment out the following line.
+\listfigures
+
+%-----------------------------------------------------------------
+% Input the thesis files written in LaTeX.
+% The \begin{document} command is not necessary here.
+% Refererence and vitae will follow the main thesis text.
+%-----------------------------------------------------------------
+% This is the beginning of the main thesis body.
+% Insert Chapter or section or subsection as many as you need.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introduction}\label{Chap:Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DO NOT DELETE FOLLOWING TWO LINES! %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\section{Motivation}
+Nowadays, although micro-controllers are more powerful, sensors become more sensitive and communication is more reliable than ever, the control problem also becomes much more complex and exhibit distributive properties. An example is traffic control problem, in which thousands of vehicles need to be coordinate such that the overall traffic system can smoothly operate. The problem of controlling such a giant system cannot be achieved by using a super controller. In fact, it will be easier if we could divide the task into smaller parts and parallelly process them by many smaller controllers working together. This is the idea of cooperation and distributed control, which comes from the nature.
+
+There are several collective behaviors of animals that could be observed in nature. Researches show that collective behaviors help animals achieve their tasks much efficient than doing alone. For instance, vee formation flight allows geese to reduce their energy expenditure, thus enables them to increase their foraging or migratory range \cite{weimerskirch2001}. Another example is a school of fish. Swimming as a team increases the survival rate when they encounter other carnivore spices \cite{partridge1982}. These examples from nature motivate us to explore the hidden laws inside the collective behaviors in animals to apply for artificial agents.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=.5]{figure/vee.jpg}
+\caption{V-formation flight in group of migrating birds. (Source: {\small \url{http://telegraph.co.uk}})}
+\end{center}
+\end{figure}
+%\footnotetext{Source: {\small \url{http://telegraph.co.uk}}}
+Recently, formation control problem has attracted a lot of research interest. In formation control problem, a group of agents has to achieve a prescribed geometric formation without a centralized sensing and processing unit. In order to accomplish the group task, each agent needs to obtain some pieces of information about formation geometry from a subgroup of members. 
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=.45]{figure/vflight}
+\caption{Jet fighters fly in V-formation. (Source: {\small \url{http://telegraph.co.uk}})}
+\end{center}
+%\footnotetext{Source: {\small \url{http://telegraph.co.uk}}}
+\end{figure}
+In this thesis, we study the use of only pure bearing measurements in formation control and guidance problems. There are several motivations for this research topic. First of all, in large-scale systems, reducing number of sensors is essential. Algorithms using only-bearing sensors reduces the budget for range sensors as well as maintenance effort, thus cuts down on the overall system's cost. Second, there are cases when the bearings are the only available source of information for controller, for example when all distance sensors are malfunctioned. Bearing-only algorithms are the only choice in this case. Therefore, studying bearing-only guidance problem gives us a reserve solution for emergence situations. Finally, bearing-only navigation is inspired from animals. Despite that insects have eyes which are relatively weak in sensing distance but good at obtaining angle information, they still do navigation task very well. It is interesting and beneficial to study how insects could accomplish the navigation task using only pure bearing information. 
+
+Note that, the model of the agents is usually chosen as simple as possible, because the goal is to explore how to control all agents to work together. Consequently, although the single integrator model is used throughout this thesis, applications could range from mobile robots to UAV (Unmanned Ariel Vehicles), UUV (Unmanned Underwater Vehicles), etc.
+
+\section{Literature Review and Contributions}
+
+Based on sensed and controlled variables, the authors in \cite{oh2013survey} classified the formation control problem into several categories, namely position-based, displacement-based, distant-based, and special cases schemes. Bearing--only formation control is a special formation control scheme, in which each agent in the group only has some relative bearing measurements with regard to its neighbors. Lacking of distance measurements made bearing--only formation control problem more challenging than other formation schemes. 
+
+In literature, There are not many works on this research direction. In fact, the bearing--only formation control problem still remains incompletely solved. In \cite{basiri2010}, the authors have proposed an formation control law for three-agents on the plane based on only relative bearing angles. A similar result for four-agents on the plane could be found in \cite{bishop2011}. In \cite{eren2012}, the author has proposed a graph theory framework for bearing only formation problem of $N$ agents in two dimensional space. This work is further extended in \cite{zelano2014}. Another idea is proposed in \cite{zhao2014}, where an angle-based control law has been applied to stabilize circular formations. In all of these works, if we use only pure bearing measurements, we will have no control for the scale of the formation shape. To compensate this limitation, at least a distance constraint need to be used. The authors in \cite{bishop2012} solved a three-agent formation control problem using two angle constraints and one distance constraint. In Chapter \ref{Chap:Result_1} of this thesis, we propose a formation control problem for $N$ agents. There are three leaders having positions information and the other followers having only bearing measurements. We propose a control strategy for leaders and followers in the system and prove that formation shape is locally asymptotically stable under this control law. Comparing with earlier works, an advantage of this setup is the ability to control the scale of the overall formation by just controlling the positions of three leaders.
+
+Navigation and guidance is an important problem for mobile agents. Based on measurements with regard to some stationary beacons, an agent may localize its relative position with the beacons and determine its navigation strategy accordingly. In general, distances and bearing angles are both obtained from agent's sensors. Using only the bearing measurements, the navigation task becomes a challenging problem. In \cite{bekris2004}, from experiment observations, a moving-along-the-bisector strategy for mobile robot to reach almost points in the entire plane was introduced. Inspired from the fact that insects' eyes can obtain good bearing information but relatively poor range information, a navigation algorithm using bearing-only information has been proposed in \cite{loizou2007}. However, this strategy requires the information of desired bearing vectors in a global coordinate. Another approach is estimating the distance from bearing measurements, then using both estimated distance and bearing measurement to do navigation task. For example, in \cite{Ye2013}, the authors provided a bearing only localization scheme for two agent undergoing circular motion in the plane. Also, the authors in \cite{Deghat2014} studied a simultaneously estimating and circumnavigation control law with regard to a slow moving target.
+
+In Chapter \ref{Chap:Result_2} and Chapter \ref{Chap:Result_3}, we study bearing--only guidance problems. Our approach is to directly use bearing angles information with regard to some beacons to achieve the navigation task. In Chapter \ref{Chap:Result_2}, we introduce a new bearing only control law to drive an agent everywhere inside a triangle region formed by three stationary beacons. Moreover, we extend the validity of this control law to regions outside the triangle. As opposed to \cite{bekris2004}, where rigorous mathematical analysis is not provided, we show that the agent asymptotically reaches to its desired location by using Lyapunov stability theory. Further our proposed navigation algorithm does not require the information on the global coordinate as contrary to \cite{loizou2007}. In Chapter \ref{Chap:Result_3}, we analyze a bearing-only algorithm to drive an agent to the point that minimize the total weighted sum of the distances to $N$ stationary beacons. This problem is usually known as the Fermat--Weber location problem. We also consider Fermat-Weber location problem when the beacons are moving and propose a solution. To the best of our knowledge, there has been no previous work on Fermat Weber problem with moving beacons in literature. The analyses in Chapter \ref{Chap:Result_3} are based on Lyapunov theory and input-to-state stability.
+
+
+\section{Outline of the thesis}
+This thesis is structured as follows. In Chapter \ref{Chap:Preliminaries}, we introduce the background for later chapters. The background includes bearing measurements, algebraic graph theory and the input--to--state stability theory for cascade system. Next, Chapter \ref{Chap:Result_1} presents an angle-based formation control problem with three leaders. In Chapter \ref{Chap:Result_2}, we develop a control law for an agent to navigate in plane using only local bearing measurements with regard to three stationary beacons. The Fermat--Weber location problem with stationary and moving beacons will be studied in Chapter \ref{Chap:Result_3}. Chapter \ref{Chap:HW} is dedicated to experiments in quadrotor platform. Finally, Chapter \ref{Chap:conclusion} includes a summary of this thesis and our future research directions.
+
+\chapter{Preliminaries}\label{Chap:Preliminaries}
+\section{Bearing measurement}
+Consider a team of $N$ autonomous agents on the plane. We use $p_i \in \mathbb{R}^2, i \in \{1, ..., N\}$ to represent agent's $i$ position and denote $p = [p_1^T, \ldots, p_n^T]^T \in {\mathbb{R}^{2n}}$ as depicted in Fig. \ref{pic:bearing}. We can define the bearing angle and bearing vector as follows:
+\begin{definition} If the agent $i$ and $j$ are not collocated, the relative bearing from $i$ to $j$ is the counter clockwise angle $\beta$ ($0 \leq \beta < 2\pi$) between the $x$-axis and the line segment connecting $i$ and $j$. Moreover, we can construct the relative bearing vector
+\begin{equation}\label{eq:def_bearing}
+\hat{u}_{ij} := \hat{u}(p_j-p_i)=\frac{p_j-p_i}{\|p_j-p_i\|}=\mathbf{1}\angle\beta,
+\end{equation}
+where $\mathbf{1}$ is the unit vector in the $x$-axis.
+\label{def:bearing}
+\end{definition}
+\begin{figure}[h!]
+\setlength{\unitlength}{1mm}
+\begin{center}
+\begin{picture}(50,45)
+\put(10,10){\circle*{2}}
+\put(50,40){\circle*{2}}
+\put(10,10){\line(4,3){40}}
+\put(5,7){$p_i$}
+\put(53,40){$p_j$}
+\put(22,16){$\hat{u}(p_j - p_i)$}
+\put(40,28){$ d_{ij}$}
+\put(30,7){$x$}
+\put(7,30){$y$}
+\put(17,12){$\beta$}
+\thinlines
+\qbezier(16,10)(16,13)(14,13)
+\put(10,10){\vector(1,0){20}}
+\put(10,10){\vector(0,1){20}}
+\thicklines
+\put(10,10){\vector(4,3){10}}
+\end{picture}
+\end{center}
+\caption{The bearing vector in 2-dimensional plane}
+\label{pic:bearing}
+\end{figure}
+\begin{remark}
+The bearing vector defined in Eq. \eqref{def:bearing} requires no distance information.
+\end{remark}
+
+\section{Algebraic graph theory}
+In this section, some related results on algebraic graph theory is briefly summarized. Graph theory will be used in chapter \ref{Chap:Result_1} to describe the sensing topology of the multi-agent system. 
+
+A directed graph is defined as a pair $\mathcal{G}:=(\mathcal{V},\mathcal{E})$, where $\mathcal{V}$ is the set of nodes and $\mathcal{E}$ is the set of ordered pairs of the nodes, called edges. In formation control problem, each agent is represented by a node in the graph. A directed edge, denoted by $(i,j) \in \mathcal{E}$, exists if agent $i$ measures the bearing to agent $j$. We call agent $j$ a neighbor of agent $i$ and denote the neighbor set of $i$ by $\mathcal{N}_i$. 
+
+A directed path is defined as a sequence of edges $(i_1,i_2), (i_2,i_3), ..., (i_{k-1}, i_k)$ in $\mathcal{E}$, where $i_1, i_2, ...,i_k \in \mathcal{V}$. $i_1$ and $i_k$ are referred as the start vertex and the end vertex, respectively. A directed cycle is a directed path which has the same start vertex and end vertex. An acyclic directed graph is a directed graph which has no directed cycle. More results on graph theory can be found from \cite{biggs1993}.
+
+\section{Input-to-state stability and cascade systems}
+In this section, we present basics of Input-to-state stability theory. Input-to-state stability is a powerful tool to study stability of cascade systems. Consider the following system
+\begin{equation}
+\dot{x}=f(x,u)
+\label{eq:iss1}
+\end{equation}
+where $f: D_x \times D_u \mapsto \mathbb{R}^n$ is locally Lipschitz in $x$ and $u$, and $D_x \subseteq \mathbb{R}^n$ and $D_u \subseteq \mathbb{R}^m$ are domains containing $x=0$ and $u=0$, respectively. Input-to-state stability is defined as follows
+
+\begin{definition} \label{def:ISS}\cite{khalil1996}
+The system~(\ref{eq:iss1}) is locally input-to-state stable (ISS) if there exist a class $\mathcal{K}\mathcal{L}$ function $\gamma$, and positive constants $k_x$ and $k_u$ such that for any initial state $x(0)$ with $\|{x(0)}\| < {k_x}$ and any input $u(t)$ with $\mathop {\sup }\limits_{0 \leq \tau  \leq t} \| {u(\tau )} \| < {k_u}$, the solution $x(t)$ exists and satisfies
+\begin{equation}\label{eq:def_ISS}
+\| x(t)\| \leq \beta (\|{x(0)}\|,t) + \gamma (\mathop {\sup }\limits_{0 \leq \tau  \leq t} \| {u(\tau )}\|,t) \geq 0.
+\end{equation}
+\end{definition}
+The following theorem presents a sufficient condition for locally ISS 
+\begin{theorem} \cite{khalil1996}
+If there exists a neighborhood $U$ of $(x=0,u=0)$ such that the function $f(x,u)$ in~(\ref{eq:iss1}) is continuously differentiable and the unforced system $\dot{x}=f(x,0)$ is asymptotically stable in $U$, then the system~(\ref{eq:iss1}) is locally input-to-state stable.
+\label{theo:liss}
+\end{theorem}
+Based on ISS, a sufficient condition for local asymptotic stability of cascade systems is provided in \textit{Theorem~\ref{theo:cascade}}
+
+\begin{theorem}\label{theo:cascade}\cite{khalil1996}
+For the cascade system
+\begin{subequations}
+\begin{align}
+        \dot{x}_1&=f_{1}(x_1,x_2),\\
+        \dot{x}_2&=f_{2}(x_2),
+\end{align}
+\label{eq:cascade}
+\end{subequations}
+where $f_{1}: D_{x_1} \times D_{x_2} \mapsto \mathbb{R}^{n_1}$ and $f_{2}: D_{x_2}  \mapsto \mathbb{R}^{n_2}$ are locally Lipschitz in $x_1$ and $x_2$, if the system~(\ref{eq:cascade}a), with $x_2$ as input, is locally ISS and the origin of the system~(\ref{eq:cascade}b) is locally asymptotically stable, the origin of the cascade system~(\ref{eq:cascade}) is locally asymptotically stable.
+\end{theorem}
+
+
+\chapter{Angle-based control of directed acyclic formations with three leaders}\label{Chap:Result_1}
+In this chapter, we study angle-based control for directed acyclic formations. Consider a group of single-integrator modeled agents on the plane. The agent group consists of three leader agents and the remaining follower agents. The leader agents are able to measure their absolute positions while the remaining agents measure the bearing of their three neighbors with respect to the $x$-axis. The bearing angle sensing topology is directed and acyclic. By adopting a direct position control law for the leader and an angle-based control law  for follower agents, we drive all agents eventually to their desired locations. Based on input-to-state stability notion, we show that the desired formation shape is locally asymptotically stable.
+
+\section{Problem formulation}
+Consider the following $N$ single-integrator modeled agents on the plane
+\begin{equation}
+\dot{p_i}=u_i, \quad i=1,\ldots,N,
+\label{eq:model}
+\end{equation}
+where $p_i \in \mathbb{R}^2$ and $u_i \in \mathbb{R}^2$ denote the position and control input of agent $i$, respectively. Without loss of generality, we assume that agents $1$, $2$, and $3$ are leaders while the remaining agents are followers. We further assume that the leaders are able to measure their own positions while the followers only measure the bearing angle of their exactly three neighbors. Let the bearing angle sensing topology be modeled by a directed acyclic graph $\mathcal{G}=(\mathcal{V},\mathcal{E})$ and all followers share a common coordinate frame. 
+
+Let follower agent $i$ have agents $j$, $k$, and $l$ as its neighbors. We denote by $\beta_{ij}$ the bearing angle of agent $j$ from the $x$-axis. From bearing measurements, agent $i$ can construct three corresponding bearing vectors $\hat{u}_{ij}, \hat{u}_{ik}$ and $\hat{u}_{ij}$ as depicted in Fig.~\ref{fig:bearing3neighbors}.
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{figure/bearing3neighbors}
+\end{center}
+\caption{Bearing measurements topology of follower $i$.}
+\label{fig:bearing3neighbors}
+\end{figure}
+
+Let $p_i^* \in \mathbb{R}^2$ be desired position of agent $i$, where $i=1,\ldots,N$. Before stating the formation control problem, we summarize the assumptions as follows: 
+\begin{assumption} \label{assump:1_1}
+For the single-integrator modeled agents \eqref{eq:model}, we assume
+\begin{itemize}
+\item Leader $i \in \{1, 2, 3\}$ measures $p_i$;
+\item Follower $i \in \{4, 5, ..., N\}$ has exactly three neighbors and it measures the bearing angles of its neighbors from the $x$-axis;
+\item The bearing angle measuring topology is modeled by a directed acyclic graph $\mathcal{G}$;
+\item Let agents $j$, $k$, and $l$ be the neighbors of agent $i$. Then any three of $p_{i}^{*}$, $p_{j}^{*}$, $p_{k}^{*}$, and $p_{l}^{*}$ are not collinear. 
+\end{itemize}
+\end{assumption}
+We are now ready to state the angle--based formation control problem.
+\begin{problem}
+Consider the single-integrator modeled agents \eqref{eq:model}. Let desired global position $p_i^*$ be given to leader $i$ and desired bearing vectors $\hat{u}_{ij}^*$, $j \in \mathcal{N}_i$ be given to follower $i$. Under Assumption \ref{assump:1_1}, design control laws for the leaders and followers such that $p^* = [p_{1}^{*T} \cdots p_{N}^{*T}]^{T}$ is asymptotically stable with respect to~\eqref{eq:model}.
+\label{prb:1_1}
+\end{problem}
+
+\section{Control strategy and stability analysis}
+\subsection{Proposed Control Strategy}
+We propose a formation control strategy that allows the leaders to directly control their positions while the followers actively control the bearing angles to their neighbors. 
+
+For $1 \leq i \leq j \leq N$, we introduce the notations: 
+\[\mathcal{V}_{[i:j]}:= \{i,...,j \},
+p_{[i:j]}=[p_i^T \ldots p_j^T]^T. \]
+Consider the single-integrator modeled agents \eqref{eq:model}. Since the leaders measure their positions and know their desired positions, it is natural to use the following control law:
+\begin{equation}
+u_i=k_L(p_i^*-p_i),
+\label{eq:Prb1_ctrlLeader}
+\end{equation}
+where $k_L>0$ is a constant. 
+
+For the follower $i \in \mathcal{V}_{[4:N]}$, we adopt the angle-based control law that has been proposed in \cite{loizou2007}. Before  introducing the control law, we define the orthogonal vector of $\hat u_{ik}$  as
+\begin{align*}
+\hat u_{ik}^{\bot} := \left[ {\begin{array}{*{20}{c}}
+  0&{ - 1} \\ 
+  1&0 
+\end{array}} \right] \hat u_{ik}.
+\end{align*}
+
+The control law for the followers can be written as
+\begin{align} \label{eq:Prb1_ctrFollower1}
+\dot{p}_i = u_i=-\sum\limits_{j \in \mathcal{N}_{i}} {(\hat u_{ij}^{*T}\hat u_{ij}^ \bot )} \hat u_{ij}^ \bot.
+\end{align}
+
+Let $\tilde{p}_{i} := p_i - p_i^{*}$. Then the error dynamics of the agents can be described by
+\begin{subequations} \label{eq:Prb1_err_dyn}
+\begin{align}
+\dot{\tilde{p}}_i&=-k_L\tilde{p}_i, i \in \mathcal{V}_{[1:3]},\\
+\dot{\tilde{p}}_i&=f_i(\tilde{p}_i,\tilde{p}_{[1:i-1]}), i \in \mathcal{V}_{[4:N]},
+\end{align}
+\end{subequations}
+where 
+\begin{align} \label{eq:Prb1_ctrFollower}
+f_i(\tilde{p}_i,\tilde{p}_{[1:i-1]}) := -\sum\limits_{j \in \mathcal{N}_{i}} {(\hat u_{ij}^{*T}\hat u_{ij}^ \bot )} \hat u_{ij}^.
+\end{align}
+
+\subsection{Stability analysis}
+In below, we show that the origin $\tilde{p}=[\tilde{p}_1^T,\ldots,\tilde{p}_N^T]^T=0$ is locally asymptotically stable under \textit{Assumption \ref{assump:1_1}} \cite{oh2014_3}. Follower $i$ can be described as
+\begin{subequations} \label{eq:Prb1_cascade_i}
+\begin{align}
+        \dot{\tilde{p}}_i&=f_i(\tilde{p}_i,\tilde{p}_{[1:i-1]}), \\
+        \dot{\tilde{p}}_{[1:i-1]}&=f_{[1:i-1]}(\tilde{p}_{[1:i-1]}),
+\end{align}
+\end{subequations}
+where
+\begin{equation}
+{f_{\left[ {1:i - 1} \right]}}({\tilde p_{[1:i - 1]}}) := \left[ {\begin{array}{*{20}{c}}
+  { - {k_L}{{\tilde p}_{[1:3]}}} \\ 
+  {{f_4}({{\tilde p}_{4}},{{\tilde p}_{[1:3]}})} \\ 
+   \vdots  \\ 
+  {{f_{i - 1}}({{\tilde p}_{i - 1}},{{\tilde p}_{[1:i - 2]}})} 
+\end{array}} \right].
+\label{eq:Prb1_cascade_fi_func}
+\end{equation}
+\begin{remark}
+The system \eqref{eq:Prb1_cascade_i} has the form of a cascade system \eqref{eq:cascade}, where $\tilde{p}_{[1:i-1]}$ is the input to~(\ref{eq:Prb1_cascade_i}a).
+\end{remark}
+Our stability analysis consists of three steps as follows:
+\begin{itemize}
+\item \emph{First Step}: We show that the origin ${\tilde p}_{[1:3]} = 0$ is exponentially stable with respect to $\dot{{\tilde p}}_{[1:3]}=- {k_L}{\tilde p}_{[1:3]}$.
+\item \emph{Second Step}: We show that \eqref{eq:Prb1_cascade_i} is locally ISS with ${\tilde p}_{[1:i - 1]}$ as input. Based on \textit{Theorem~\ref{theo:cascade}}, $\tilde p_{[1:i]}$ is locally asymptotically stable with respect to \eqref{eq:Prb1_cascade_i} if $\tilde p_{[1:i - 1]}=0$ is locally asymptotically stable with respect to (\ref{eq:Prb1_cascade_i}b).
+\item \emph{Third Step}: Finally we show that the origin is locally asymptotically stable with respect to $\dot{{\tilde p}}_{[1:N]}=f_{[1:N]}(\tilde{p}_i,\tilde{p}_{[1:N]})$ based on mathematical induction.
+\end{itemize}
+
+The first step is obvious \cite{oh2013survey}. For the second step, we show local stability of the following unforced dynamics of~(\ref{eq:Prb1_cascade_i}a)
+\begin{equation}
+\dot{\tilde{p}}_i=f_i(\tilde{p}_i,0), \; i \in \mathcal{V}_{[4:N]}.
+\label{eq:Prb1_unforced_system_i}
+\end{equation}
+We have the following lemmas:
+\begin{lemma}\cite[Theorem 6]{loizou2007}\label{Prb1_lem0}
+Given three desired bearing vectors $\hat{u}_{ij}, \hat{u}_{ik}, \hat{u}_{il}$. If three neighbors $j, k, l$ are stationary, the system \eqref{eq:Prb1_ctrFollower1} is globally asymptotically stable.
+\end{lemma}
+\begin{lemma} \label{Prb1_lem1}
+Let \textit{Assumption \ref{assump:1_1}} hold. For $i \in \mathcal{V}_{[4:N]}$, the origin $\tilde{p}_i=0$ is locally asymptotically stable with respect to~(\ref{eq:Prb1_unforced_system_i}).
+\end{lemma}
+\begin{proof}
+The unforced error dynamics \eqref{eq:Prb1_unforced_system_i} implies that all agents $1,\ldots,i-1$ are at their desired positions, which are non-collinear as a result of \textit{Assumption \ref{assump:1_1}}. It then follows from \textit{Lemma \ref{Prb1_lem0}} that $\tilde{p}_i=0$ is asymptotically stable with respect to \eqref{eq:Prb1_unforced_system_i}.
+\end{proof}
+The following lemma reveals locally ISS of (\ref{eq:Prb1_cascade_i}a):
+\begin{lemma}
+Let \textit{Assumption \ref{assump:1_1}}. For $i \in \mathcal{V}_{[4:N]}$, (\ref{eq:Prb1_cascade_i}a) is locally input-to-state stable with $\tilde{p}_{[1:i-1]}$ as input.
+\label{Prb1_lem2}
+\end{lemma}
+\begin{proof}
+From \textit{Lemma \ref{Prb1_lem1}}, $\tilde{p}_i=0$ is locally asymptotically stable with respect to~(\ref{eq:Prb1_unforced_system_i}). Further $f_i$ defined in~(\ref{eq:Prb1_ctrFollower}) is continuously differentiable in $\tilde{p}_i$ and $\tilde{p}_{[1:i-1]}$. Thus, it follows from \textit{Theorem~\ref{theo:liss}} that (\ref{eq:Prb1_cascade_i}a) is locally ISS with $\tilde{p}_{[1:i-1]}$ as input.
+\end{proof}
+Finally, we have the following theorem:
+\begin{theorem}
+Let \textit{Assumption \ref{assump:1_1}} hold. The origin $\tilde{p}=0$ is locally asymptotically stable with respect to~(\ref{eq:Prb1_err_dyn}).
+\end{theorem}
+\begin{proof}
+Consider the following cascade system
+\begin{subequations}
+\begin{align}
+        \dot{\tilde{p}}_4&=f_4(\tilde{p}_4,\tilde{p}_{[1:3]}), \\
+        \dot{\tilde{p}}_{[1:3]}&=- {k_L}{{\tilde p}_{[1:3]}}.
+\end{align}
+\label{eq:Prb1_cascade_4}
+\end{subequations}
+It is obvious that the origin ${\tilde{p}}_{[1:3]}=0$ is exponentially stable with respect to~(\ref{eq:Prb1_cascade_4}b). Based on \textit{Lemma \ref{Prb1_lem2}}, (\ref{eq:Prb1_cascade_4}a) is locally stable with ${\tilde{p}}_{[1:3]}$ as input. It then follow from \textit{Theorem~\ref{theo:cascade}} that ${\tilde{p}}_{[1:4]}=0$ is locally asymptotically stable with respect to~(\ref{eq:Prb1_cascade_4}).
+
+Next, suppose that, for any $i \in \mathcal{V}_{[L+1,N]}$, (\ref{eq:Prb1_cascade_i}b) is locally asymptotically stable. \textit{Lemma \ref{Prb1_lem2}} guarantees the locally ISS stability of (\ref{eq:Prb1_cascade_i}a) with ${\tilde{p}}_{[1:i-1]}=0$ as input. Thus, from \textit{Theorem \ref{theo:cascade}}, we have ${\tilde{p}}_{[1:i]}=0$ is also locally asymptotically stable with respect to (\ref{eq:Prb1_cascade_i}b).
+
+As a result of mathematical induction, for any $i \in \mathcal{V}_{[L+1,N]}$, ${\tilde{p}}_{[1:i]}=0$ is locally asymptotically stable with respect to (\ref{eq:Prb1_cascade_i}). Thus, we can conclude that ${\tilde{p}}=0$ is locally asymptotically stable with respect to~(\ref{eq:Prb1_err_dyn}).
+\end{proof}
+\section{Simulations}
+We consider a group of ten agents whose sensing topology is depicted in Fig. \ref{fig:Prob1_sensing_topology}. 
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=8cm]{figure/Prob1_sensing_topology}
+\end{center}
+\caption{Bearing measurement topology of a ten-agents system.}
+\label{fig:Prob1_sensing_topology}
+\end{figure}
+
+The desired positions are given as $p_1^*=(0,\frac{3\sqrt{3}}{2}), p_2^*=(-\frac{1}{2},\sqrt{3}), p_3^*=(\frac{1}{2},\sqrt{3}), p_4^*=(0,\frac{\sqrt{3}}{2}), p_5^*=(-1,\frac{\sqrt{3}}{2}), p_7^*=(-\frac{1}{2},0), p_8^*=(\frac{1}{2},0), p_9^*=(-\frac{3}{2},0), p_{10}^*=(\frac{3}{2},0)$. Note that the Assumption \ref{assump:1_1} is satisfied for this group of agents.
+
+Simulation results for the group of ten agents under the proposed control strategy are shown in \textit{Fig. \ref{fig:Prob1_angleBased3leaders_trajectory}} and \textit{Fig. \ref{fig:Prob1_errorAngleBasedLeaders}}. We can see from \textit{Fig. \ref{fig:Prob1_angleBased3leaders_trajectory}} that both leaders and followers eventually reach their desired positions. The position error of agents 1, 4, and 8 are shown in Fig. \ref{fig:Prob1_errorAngleBasedLeaders}. These errors are asymptotically reach to $0$. Thus, the simulation results agree with our stability analysis.
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=13.5cm]{figure/Prob1_angleBased3leaders_trajectory}
+\end{center}
+\caption{Trajectories of the agents.}
+\label{fig:Prob1_angleBased3leaders_trajectory}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width = 13.5cm]{figure/Prob1_errorAngleBasedLeaders}
+\end{center}
+\caption{Magnitude of position errors.}
+\label{fig:Prob1_errorAngleBasedLeaders}
+\end{figure}
+
+
+\chapter{Control of a mobile agent using only bearing measurements with three stationary beacons}\label{Chap:Result_2}
+In this chapter, we present a new bearing-only control law for a single integrator agent moving on the plane. First, we prove that the agent is able to reach almost desired locations inside the triangle formed by three stationary beacons under our proposed control law. Next, we introduce an algorithm to extend the control law to other regions in the plane. The novelty of this control is that, it requires only pure bearing measurements and no knowledge of a global reference frame.
+\section{Problem formulation}
+Consider a system of three non-colinear stationary beacons located at $A_1, A_2, A_3 $ and an agent on the plane. The overall system is depicted in Fig. \ref{Prob2_fig:0}. A single integrator model is used to describe the agent's motion. That is, the motion is governed by the equation \[\dot{p} = v,\] where $p, v \in \mathbb{R}^2$ are the position and velocity of the agent at time $t$ correspondingly. In this chapter, the notation $\widehat{A_k}, k \in \{1, 2, 3\}$ is used to denote three interior angles of the triangular $A_1A_2A_3$. We consider the following assumptions
+\begin{figure}[htb!]
+\begin{center}
+\includegraphics[width = 3 in]{figure/Prob2_fig0}
+\end{center}
+\caption{The agent measures the bearings $\beta_1, \beta_2, \beta_3$ with regard to the beacons $A_1, A_2, A_3$.}
+\label{Prob2_fig:0}
+\end{figure}
+\begin{assumption}
+\label{assump:2_1}
+The initial position of the agent is in the triangular formed by the three stationary beacons and is not co-located with any beacon's position.
+\end{assumption}
+\begin{assumption}
+The agent can measure the relative bearing angles to the three beacons $\beta_1, \beta_2, \beta_3$ in its local reference frame as depicted in \textit{Fig. \ref{Prob2_fig:0}}. Those bearing angles satisfy $0 \leq \beta_{k} < 2\pi$, for $k \in \{1, 2, 3\}$.
+\label{assump:2_2}
+\end{assumption}
+Based on \textit{Assumptions \ref{assump:2_1} - \ref{assump:2_2}}, the agent has information of the directions toward the three beacons by constructing three unit bearing vectors:
+\begin{equation}
+\hat{u}_k := \hat{u}(p_k-p) = \frac{p_k-p}{\|p_k-p\|} = \mathbf{1} \angle{\beta}_k,
+\label{eq:Prob2_bearingVectors}
+\end{equation}
+for $k \in \{1, 2, 3\}$. Let ${\vartheta_k} = | \beta_{k-1} - \beta_{k+1} |$, then $0 \leq {\vartheta_k} <2\pi$.  We define the subtended angles between two bearing vectors as
+\begin{equation}
+{\alpha _k} = \left\{ {\begin{array}{*{20}{c}}
+  {{\vartheta _k}} \\ 
+  {2\pi  - {\vartheta_k}} 
+\end{array}\begin{array}{*{20}{c}}
+  {{\text{  if }}0 \leq {\vartheta_k} \leq \pi } \\ 
+  {\text{  if }} {\pi  \leq {\vartheta _k} \leq 2\pi } 
+\end{array}} \right.,
+\label{eq:Prob2_interior}
+\end{equation}
+for $k \in \{1, 2, 3\}$. Suppose that the agent wants to move to a desired position $p^*$ inside the triangular $A_1, A_2, A_3$, where the three subtended angles are $\alpha_k^*$, $k \in \{1, 2, 3\}$ as depicted in \textit{Fig. \ref{Prob2_fig:1}},. Then, we have the following assumptions about those desired angles:
+\begin{assumption}
+\label{assump:2_3}
+The desired subtended angles satisfy the following constraints
+\begin{subequations}
+\begin{equation}
+\sum\limits_{k = 1}^3 {\alpha _k^*}  = 2\pi,
+\label{eq:Prob2_dAngleSumConstraint}
+\end{equation}
+\begin{equation}
+\widehat{A_k} < \alpha _k^* \leq \pi.
+\label{eq:Prob2_desiredAngleConstraints}
+\end{equation}
+\end{subequations}
+\end{assumption}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width = 4 in]{figure/Prob2_fig1.pdf}
+\end{center}
+\caption{$p^*$ is the desired position where three subtended angles are $\alpha_1^*, \alpha_2^*, \alpha_3^*$.}
+\label{Prob2_fig:1}
+\end{figure}
+Now, we can formulate the problem as follows:
+\begin{problem}\label{Prob2}
+Under \textit{Assumptions \ref{assump:2_1}-\ref{assump:2_3}}, design a control law for the agent to asymptotically reach its desired position.
+\end{problem}
+\section{Control law and stability analysis}
+\subsection{Proposed control law}
+Before proposing the navigation control law, we recall a simple result from planar geometry in the following lemma:
+\begin{lemma}
+There is a unique point inside the triangular $A_1, A_2, A_3$ satisfying all three subtended angles $\alpha_k^*$, $k \in \{1, 2, 3\}$ in the \textit{Assumption \ref{assump:2_3}}.
+\label{lemma:2_1}
+\end{lemma}
+The proof of \textit{Lemma \ref{lemma:2_1}} is trivial. Based on Lemma \ref{lemma:2_1}, it is natural to introduce a control law which continuously lets the agent move whenever three desired subtended angles are still not achieved. The following control law can be adopted
+\begin{equation}
+  \dot{p} = u = u_{1} + u_{2} + u_{3},
+  \label{eq:Prob2_ctrlLawG}
+\end{equation}
+where
+\begin{align*}
+  u_{1} &= k_u({\alpha_{1}} - \alpha_{1}^*)\hat u_{1}=k_u e_1 \hat u_{1} \\
+  u_{2} &= k_u({\alpha_{2}} - \alpha_{2}^*)\hat u_{2}=k_u e_2 \hat u_{2} \\
+  u_{3} &= k_u({\alpha_{3}} - \alpha_{3}^*)\hat u_{3}=k_u e_3 \hat u_{3}. 
+\end{align*}
+In (\ref{eq:Prob2_ctrlLawG}), $k_u>0$ is a constant gain and $e_k$ is the angle error defined by $e_k = {\alpha _{k}} - \alpha _{k}^*$, for $k \in \{1, 2, 3\}$. The control input consists of three components $u_{1}, u_{2}$, and $u_{3}$. The component $u_k$ is heading toward or outward the $k-$th beacon depending on the agent's position.
+From hereby, we can set $k_u = 1$ to simply the analysis without loss of generality.
+\subsection{Stability Analysis}
+In below, we prove that the desired position is a unique asymptotically stable equilibrium point of system (\ref{eq:Prob2_ctrlLawG}). The following lemma is essential for further analysis:
+\begin{lemma}
+\label{Lem:Prob2_non-escapable}
+If the agent is initially positioned inside the triangle $ A_{1}A_2A_{3}$, it will never escape from that region under the control law (\ref{eq:Prob2_ctrlLawG}).
+\end{lemma}
+\begin{proof}
+The agent may escape the triangle $A_{1}A_2A_{3}$ from one of three sides $A_{1}A_2$, $A_{2}A_3$ or $A_{3}A_1$. Without loss of generality, consider a case when the agent is about to escape the triangular from the side $A_{2}A_3$. Other cases can be treated similarly. As depicted in Figure \ref{Prob2_fig2}, at that time instance, $A_2$, the agent's position and $A_3$ are colinear. Thus, $\alpha_1=\pi$, $u_2$ and $u_3$ lie in the same line $A_2A_3$. Due to \textit{Assumption \ref{assump:2_3}}, $\alpha_1^* < \pi$. It follows from (\ref{eq:Prob2_ctrlLawG}) that $u_1$ directs toward $A_1$ and the agent will move inside the triangular.
+\end{proof}
+
+\textit{Lemma \ref{Lem:Prob2_non-escapable}} guarantees that the agent will be the triangle $ A_{1}A_2A_{3}$ for all time $t$. Therefore, the subtended angles must satisfy the following constraints
+\begin{equation}
+\sum\limits_{k = 1}^3 {\alpha _k}  = 2\pi
+\label{eq:Prob2_sumConstraints}
+\end{equation}
+\begin{equation}
+\widehat{A_k} < \alpha _k \leq \pi,
+\label{eq:Prob2_rangeContraints}
+\end{equation} 
+for $k \in \{1, 2, 3\}$.
+From equations (\ref{eq:Prob2_sumConstraints}) and (\ref{eq:Prob2_dAngleSumConstraint}), it follows that
+\begin{equation}
+\sum\limits_{k = 1}^3 e_k = \sum\limits_{k = 1}^3 {(\alpha _k -\alpha_k^*)}  = \sum\limits_{k = 1}^3 {\alpha _k}-\sum\limits_{k = 1}^3 {\alpha _k^*}=2 \pi - 2 \pi=0
+\label{eq:Prob2_sumConstraintse}
+\end{equation}
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[width=4in]{figure/Prob2_fig2.png}
+\caption{Illustration of \textit{Lemma \ref{Lem:Prob2_non-escapable}}'s proof.}
+\label{Prob2_fig2}
+\end{center}
+\end{figure}
+\begin{lemma}
+There is a unique equilibrium point of (\ref{eq:Prob2_ctrlLawG}) inside the triangular $A_{1}A_2A_{3}$.
+\label{Lem:Prob2_uniqueEquilibrium} 
+\end{lemma}
+\begin{proof}
+The equilibrium points satisfy the equation
+\begin{equation}
+\dot p = 0
+\label{eq:Prob2_equilibrium}
+\end{equation}
+Obviously, equation (\ref{eq:Prob2_equilibrium}) has a solution $p^*$ where $\alpha_k = \alpha_k^*$, or $e_k=0, \forall k \in \{1, 2, 3\}$. Based on \textit{Lemma \ref{lemma:2_1}}, $p^*$ is the only point satisfying three desired subtended angles.
+
+We will prove that $p^*$ is also the unique solution of (\ref{eq:Prob2_equilibrium}) by contradiction. Suppose that there exists $p$ satisfying (\ref{eq:Prob2_equilibrium}) but $\exists k \in \{1, 2, 3\}$ s.t. $e_k \neq 0$. Without loss of generality, we can assume that $k = 1$. It follows from \textit{Lemma \ref{Lem:Prob2_non-escapable}} that all pairs of vectors $\{\hat{u}_1, \hat{u}_2 \}$, $\{\hat{u}_2, \hat{u}_3 \}$ and $\{\hat{u}_3, \hat{u}_1 \}$ are linear independent. Therefore, from the linearly dependent of $\{\hat{u}_1, \hat{u}_2, \hat{u}_3 \}$, there exists unique $a, b \in \mathbb{R}$ such that $ab \neq 0$ and
+\begin{subequations}
+\begin{equation}
+\hat{u}_1=a\hat{u}_2+b\hat{u}_3
+\label{eq:Prob2_depend0}
+\end{equation}
+or,
+\begin{equation}
+\hat{u}_1-a\hat{u}_2-b\hat{u}_3=0
+\label{eq:Prob2_depend1}
+\end{equation}
+\end{subequations}
+
+Equation (\ref{eq:Prob2_equilibrium}) is equivalent to $e_1\hat{u}_1+e_2\hat{u}_2+e_3\hat{u}_3=0$. Since $e_1 \neq 0$, we have
+\begin{equation}
+\hat{u}_1+\frac{e_2}{e_1}\hat{u}_2+\frac{e_3}{e_1}\hat{u}_3=0
+\label{eq:Prob2_depend2}
+\end{equation}
+
+Comparing (\ref{eq:Prob2_depend1}) with (\ref{eq:Prob2_depend2}), the uniqueness of $a, b$ gives $e_2=-ae_1$, $e_3=-be_1$. Substituting into (\ref{eq:Prob2_sumConstraintse}) yields
+$e_1-ae_1-be_1=0$, which is equivalent to $a+b=1$. $(*)$
+
+On the other hand, $\|\hat{u}_1\|=\|\hat{u}_2\|=\|\hat{u}_3\|=1$. From (\ref{eq:Prob2_depend0}), we have
+\begin{align}
+1 = \|\hat{u}_1\|^2=\hat{u}_1^T\hat{u}_1 &=(a\hat{u}_2+b\hat{u}_3)^T(a\hat{u}_2+b\hat{u}_3) \nonumber \\
+&=a^2\|\hat{u}_2\|^2+b^2\|\hat{u}_3\|^2+2ab\hat{u}_2^T\hat{u}_3 \nonumber \\
+&=a^2+b^2+2ab\|\hat{u}_2\|\|\hat{u}_3\|\cos\alpha_1 \nonumber \\
+&=a^2+b^2+2ab\cos\alpha_1 \label{Prob2_inequ}
+\end{align}
+
+From (\ref{eq:Prob2_rangeContraints}), we have $\cos\alpha_1<1$. Thus, it follows from (\ref{Prob2_inequ}) that $1 < (a+b)^2$ or $|a+b|<1$, which contradicts $(*)$. This contradiction implies that (\ref{eq:Prob2_ctrlLawG}) has no other equilibrium point than $p^*$.
+\end{proof}
+
+In the following analysis, we study the dynamics of the subtended angles with regard to each control input components $u_1, u_2, u_3$. 
+
+Firstly, we find the changes of $\alpha_1$ caused by $u_1$. Define $\widehat{A}_{21}$, $\widehat{A}_{31}$ as the angles between $A_2A_3$ and  line segments connecting the agent's position with $A_2$ and $A_3$ respectively (see \textit{Fig. \ref{Prob2_fig:1}}). The changes of two angles $\widehat{A}_{21}$ and $\widehat{A}_{31}$ under $u_1$, denoted by $\dot{\widehat{A}}_{21}^1$ and $\dot{\widehat{A}}_{31}^1$ respectively, are
+\begin{align*}
+\dot{\widehat{A}}_{21}^1 &= \frac{1}{r_2}(\alpha_1 - \alpha_1^*)\sin\alpha_3 = \frac{1}{r_2} \sin\alpha_3 e_1 \\
+\dot{\widehat{A}}_{31}^1 &= \frac{1}{{{r_3}}}\sin {\alpha _2}e_1,
+\end{align*}
+where $r_k = \|p_k-p\|$, $k \in \{1, 2, 3\}$ is the Euclidean distance from the agent to the $k-$th beacon. Let ${\alpha}_{11}$ the changes of ${\alpha}_{1}$ under $u_1$. Since $\widehat{A}_{21}+ \widehat{A}_{31}+ \alpha_1 = \pi$, it follows that $\dot{ \widehat{A}}_{21}^1+ \dot{ \widehat{A}}_{31}^1+\dot {\alpha}_{11} = 0$. Thus, the changes of $\alpha_1$ caused by $u_1$ is given by
+\begin{equation}
+{\dot \alpha _{11}} =  - (\frac{1}{{{r_3}}}\sin {\alpha_2} + \frac{1}{{{r_2}}}\sin {\alpha_3})e_1 =  - {g_{11}}e_1.
+\label{eq:Prob2_model1}
+\end{equation}
+Secondly, we find the changes of $\alpha_1$ under $u_2$.
+\begin{align*}
+\dot {\widehat{A}}_{21}^2 &= 0 \\
+\dot {\widehat{A}}_{31}^2 &= -\frac{1}{r_3}\sin {\alpha_1}(\alpha_2 - \alpha_2^*)= -\frac{1}{r_3}\sin {\alpha_1}e_2
+\end{align*}
+Thus,
+\begin{equation}
+{\dot \alpha_{12}} =  \frac{1}{r_3}\sin {\alpha_1} e_2 = {f_{12}}e_2
+\label{eq:Prob2_model2}
+\end{equation}
+Thirdly, the changes of $\alpha_1$ under $u_3$ is
+\begin{equation}
+{\dot \alpha_{13}} =  \frac{1}{r_2}\sin {\alpha_1}e_3 = {f_{13}} e_3
+\label{eq:Prob2_model3}
+\end{equation}
+Finally, from  (\ref{eq:Prob2_model1}), (\ref{eq:Prob2_model2}) and (\ref{eq:Prob2_model3}), we can write
+\begin{align*}
+{{\dot \alpha }_1} &=  - (\frac{1}{{{r_3}}}\sin {\alpha _2} + \frac{1}{{{r_2}}}\sin {\alpha _3})e_1 + \frac{1}{{{r_3}}}\sin {\alpha _1}e_2 + \frac{1}{{{r_2}}}\sin {\alpha _1}e_3 \\
+&=  - {g_{11}}e_1 + {f_{12}}e_2 + {f_{13}}e_3
+\end{align*}
+By a similar process, the changes of $\alpha_2$ and $\alpha_3$ due to $u_1, u_2, u_3$ can be written as follows
+\begin{align*}
+{{\dot \alpha }_2} &= \frac{1}{{{r_3}}}\sin {\alpha _2}e_1 - (\frac{1}{{{r_3}}}\sin {\alpha_1} + \frac{1}{{{r_1}}}\sin {\alpha_3})e_2 + \frac{1}{{{r_1}}}\sin {\alpha _2} e_3 \\
+&=   {f_{21}}e_1 - {g_{22}}e_2+ {f_{23}} e_3
+\end{align*}
+\begin{align*}
+{{\dot \alpha }_3} &= \frac{1}{{{r_2}}}\sin {\alpha _3}e_1 + \frac{1}{{{r_1}}}\sin {\alpha _3}e_2 - (\frac{1}{{{r_1}}}\sin {\alpha_2} + \frac{1}{{{r_2}}}\sin {\alpha _1})e_3\\
+&=   {f_{31}}e_1 + {f_{32}}e_2- {g_{33}}e_3
+\end{align*}
+
+Let $\alpha = {[{\begin{array}{*{15}{c}}
+  {{\alpha_1}}&{{\alpha_2}}&{{\alpha_3}} 
+\end{array}}]^T}$ and $e = {\left[ {\begin{array}{*{15}{c}}
+  {{e_1}}&{{e_2}}&{{e_3}} 
+\end{array}} \right]^T}$, then $\dot{\alpha}=\dot{e}$ and for $k \in \{1, 2, 3\}$,
+\begin{equation}
+\dot{e}_k=-g_{kk}e_k+f_{k(k+1)}e_{k+1}+f_{k(k-1)}e_{k-1}.
+\label{eq:Prob2_dyne}
+\end{equation} 
+The angle error dynamics equations (\ref{eq:Prob2_dyne}) can be combined as follows
+\begin{equation}
+\dot{e} = M(e)e
+\label{eq:Prob2_err}
+\end{equation}
+where
+\[M(e) = \left[ {\begin{array}{*{20}{c}}
+  {-{g_{11}}}&{{f_{12}}}&{{f_{13}}} \\ 
+  {{f_{21}}}&{ - {g_{22}}}&{{f_{23}}} \\ 
+  {{f_{31}}}&{{f_{32}}}&{ - {g_{33}}} 
+\end{array}} \right].\]
+The nonlinear system (\ref{eq:Prob2_err}) is defined in $\mathcal{M}_e=(\widehat{A}_1-\alpha_1^*,\pi-\alpha_1^*]\times(\widehat{A}_2-\alpha_2^*,\pi-\alpha_2^*]\times(\widehat{A}_3-\alpha_3^*,\pi-\alpha_3^*]$. We can see that in $\mathcal{M}_e$, $g_{kk} \geq 0$, $f_{jk}\geq 0$ for $j, k \in \{1, 2, 3 \}$ and $j \neq k$. Moreover, the column sums of $M$ are zero
+\begin{equation}
+-g_{kk}+f_{(k+1)k}+f_{(k-1)k}=0
+\label{eq:Prob2_ColSum}
+\end{equation}
+
+Let $\lambda(e):\mathcal{M}_e \mapsto \mathbb{R} \cup \{+\infty\}$ be a convex, Lipschitz-continuous function with $\lambda>0$ in $\mathcal{M}_e-\{0\}$. Suppose that $\lambda(e)=\Sigma_k\lambda_k(e_k)$ where each $\lambda_k$ is a function of only $e_k$. Define the upper-right derivative \cite{khalil1996}, \cite{bishop2011} of $\lambda(e)$ by 
+\begin{equation*}
+D^{+}\lambda(e)=[D^{+}\lambda_1(e_1), D^{+}\lambda_2(e_2), D^{+}\lambda_3(e_3)]^T \\
+D^{+}\lambda_k(e_k)= \lim\limits_{h \to {0^ + }} \sup \frac{{{\lambda _k}({e_k} + h) - {\lambda _k}({e_k})}}{h}.
+\end{equation*}
+Note that the standard derivative coincides with the upper-right derivative at $e_k$ when it exists. Now, we are at the point to state the main theorem.
+\begin{theorem}
+Under \textit{Assumptions \ref{assump:2_1}--\ref{assump:2_3}} and the control law (\ref{eq:Prob2_ctrlLawG}), the agent will asymptotically reach the desired position, or equivalently, the origin of the system (\ref{eq:Prob2_err}) is asymptotically stable.
+\label{theo:Prob2_stability}
+\end{theorem}
+\begin{proof}
+Consider the Lyapunov candidate function $V(e)=\sum\limits_{k = 1}^3 \lambda_k= \sum\limits_{k = 1}^3|e_k|$ which is positive definite in $\mathcal{M}_e$. Note that $\lambda_k=|e_k|$ is a convex, positive, Lipschitz continuous function in $\mathcal{M}_e-\{0\}$. Thus, $\lambda_k$ is differentiable everywhere except at $e_k=0$. Moreover, its upper-right derivative at $e_k=0$ is $D^{+}\lambda_k(e_k)=1$. Consider three cases:
+\begin{itemize}
+\item Case 1. ($e_k=0$): $\dot{\lambda}_k=D^{+}\lambda_k({e}_k)\dot{e}_k=\dot{e}_k$.
+\begin{align*}
+\dot{\lambda}_k &=\dot{e}_k=-g_{kk}e_k+f_{k(k+1)}e_{k+1}+f_{k(k-1)}e_{k-1}\\
+&\leq -g_{kk}\lambda_k+f_{k(k+1)}\lambda_{k+1}+f_{k(k-1)}\lambda_{k-1}
+\end{align*}
+where the inequality is an equality if and only if $e_{k+1}=0, e_{k+1}=0$. 
+\item Case 2. ($e_k>0$): $\lambda_k=e_k$ or $\dot{\lambda}_k=\dot{e}_k$.
+\begin{align*}
+\dot{\lambda}_k &=\dot{e}_k=-g_{kk}e_k+f_{k(k+1)}e_{k+1}+f_{k(k-1)}e_{k-1}\\
+&\leq -g_{kk}\lambda_k+f_{k(k+1)}\lambda_{k+1}+f_{k(k-1)}\lambda_{k-1}
+\end{align*}
+where the inequality is an equality if and only if $e_{k+1} \geq 0, e_{k+1}\geq0$ which cannot happen because of (\ref{eq:Prob2_sumConstraintse}).
+\item Case 3. ($e_k<0$): $\lambda_k=-e_k$ or $\dot{\lambda}_k=-\dot{e}_k$.
+\begin{align*}
+\dot{\lambda}_k &=\dot{e}_k=g_{kk}e_k-f_{k(k+1)}e_{k+1}-f_{k(k-1)}e_{k-1}\\
+&\leq -g_{kk}\lambda_k+f_{k(k+1)}\lambda_{k+1}+f_{k(k-1)}\lambda_{k-1}
+\end{align*}
+where the inequality is an equality if and only if $e_{k+1}\leq0, e_{k+1}\leq0$ which also cannot happen because of (\ref{eq:Prob2_sumConstraintse}). 
+\end{itemize}
+Bringing the three cases together, for all $e \in \mathcal{M}_e$, the derivative of $V$ can be written as
+\begin{subequations}
+\begin{align}
+\dot{V}=\sum_k\dot{\lambda}_k &\leq \sum\limits_{k=1}^{3} {(-g_{kk}\lambda_k+f_{k(k+1)}\lambda_{k+1}+f_{k(k-1)}\lambda_{k-1})} \\
+&=\sum\limits_{k=1}^{3} {(-g_{kk}+f_{(k+1)k}+f_{(k-1)k})\lambda_k}=0,
+\label{Prob2_inequAll}
+\end{align}
+\end{subequations}
+where, for the last equality, we have used (\ref{eq:Prob2_ColSum}). The equalities and inequalities in (\ref{Prob2_inequAll}) are valid for all $e \in \mathcal{M}_e$ given $\dot{\lambda}=[D^{+}\lambda(e)]^T\dot{e}$. Moreover, the only possible case to have an equality is $e_k=0$ for $k=1,2,3$.
+
+Since $V$ is positive definite, $\dot{V}$ is negative semidefinite in $\mathcal{M}_e$ and $\dot{V}=0$ if and only if $e=0$, it follows from \cite{khalil1996} that the origin $e=0$ of (\ref{eq:Prob2_err}) is asymptotically stable.
+\end{proof}
+
+\section{Extended navigation algorithm}
+\subsection{Reaching the triangular region from outside}
+In this section, we study the \textit{Problem \ref{Prob2}} when \textit{Assumption \ref{assump:2_1}} is not true, i.e, the initial position of the agent is outside the triangular $A_1A_2A_3$. We propose the following  bearing-only control law to steer the agent into the triangular $A_1A_2A_3$:
+\begin{equation}
+\dot{p} = \hat{u}_1 + \hat{u}_2 + \hat{u}_3.
+\label{eq:Prob2_control_law_out}
+\end{equation}
+
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[width=5in]{Prob2_fig3}
+\caption{The control law when agent is outside the triangle$A_1A_2A_3$}
+\label{Prob2_fig1}
+\end{center}
+\end{figure}
+\begin{proposition}
+The control law~(\ref{eq:Prob2_control_law_out}) steers the agent inside the triangle $A_1A_2A_3$.
+\label{Lem:Prob2_get_inside}
+\end{proposition}
+\begin{proof}
+The proof consists of three steps:
+\begin{itemize}
+\item Step 1: Since the agent is outside the triangle, there exists an angle $\alpha_k, k \in \{1, 2, 3\}$ such that 
+\begin{equation}\label{eq:Prob2_check_region}
+\alpha_k = \alpha_{k-1} + \alpha_{k+1}
+\end{equation}
+Based on \textit{Eq. \ref{eq:Prob2_check_region}}, we divide the plane outside the triangle into 6 regions ($\mathbf{Ia}-\mathbf{IIIa}, \mathbf{Ib}-\mathbf{IIIb}$) as depicted in \textit{Fig. \ref{Prob2_fig2}}. Note that the agent can check Eq. \ref{eq:Prob2_check_region} to induce its current position. For instance, if $\alpha_2 = \alpha_{1} + \alpha_{3}$, then the agent will be in region $\mathbf{IIa}$ or $\mathbf{IIb}$.
+
+Without loss of generality, we consider two cases: \emph{(i)} the agent is inside region $\mathbf{IIa}$ and \emph{(ii)} the agent is inside the region $\mathbf{IIb}$. The remaining regions can be treated similarly.
+\item Step 2: When the agent is inside region $\mathbf{IIa}$, we will prove that \emph{(i)} the agent cannot escape to $\mathbf{Ib}$ or $\mathbf{IIIb}$ and \emph{(ii)} inside $\mathbf{IIa}$, the angle $\alpha_2$ between $\hat{u}_1$ and $hat{u}_3$ is strictly increasing. 
+
+\emph{(i)} When the agent is on the boundary of region $\mathbf{Ib}$ and $\mathbf{IIa}$ (the line $A_2A1$), the bearing vectors $\hat{u}_1$ and $\hat{u}_3$ lie along line $A_1A2$, while the bearing vector $\hat{u}_3$ directs into $A_3$. Thus, $\hat{u}_3$ lets the agent move into region $\mathbf{IIa}$. When the agent is on the boundary of region $\mathbf{IIa}$ and $\mathbf{IIIb}$, the proof is similar. Therefore, we can conclude that the agent will not move into $\mathbf{Ib}$ or $\mathbf{IIIb}$ from $\mathbf{IIa}$.
+
+\textit{(ii)} Define the angles $\varphi_1, \varphi_2$  as in \textit{Fig. \ref{Prob2_fig2}}. Consider the effect of each component $\hat{u}_1, \hat{u}_2, \hat{u}_3$ to $\alpha_2$.
+\begin{itemize}
+\item Consider the change of $\alpha_2$ under $\hat{u}_2$. Firstly, $\hat{u}_2$ affects $\varphi_1$ as follows: $\dot{\varphi}_{12} = -\frac{\sin{\alpha_1}}{r_3}$. Similarly, the change of $\varphi_2$ due to $\hat{u}_2$ is $\dot{\varphi}_{22} = -\frac{\sin{\alpha_2}}{r_1}$. Because $\alpha_2+\varphi_1+\varphi_2 = \pi$, we have $\dot{\alpha}_2+\dot{\varphi}_1+\dot{\varphi}_2 = 0$. Therefore, $\dot{\alpha}_{22} = \frac{\sin{\alpha_1}}{r_3}+\frac{\sin{\alpha_2}}{r_1}$.
+\item Similarly, the change of $\alpha_2$ caused by $\hat{u}_1$ is $\dot{\alpha}_{21} = \frac{\sin{\alpha_2}}{r_3} $. And the change of $\alpha_2$ caused by $\hat{u}_3$ is $\dot{\alpha}_{23} = \frac{\sin{\alpha_2}}{r_1} $.
+\item Finally, the total change of $\alpha_2$ made by the control law is:
+$\dot{\alpha}_2=\dot{\alpha}_{21}+\dot{\alpha}_{22}+\dot{\alpha}_{23}=\frac{\sin{\alpha_1}}{r_3}+\frac{\sin{\alpha_2}}{r_1}+(\frac{1}{r_1}+\frac{1}{r_3})\sin{\alpha_2}$. Because the agent is in the region $\mathbf{IIa}$, the angles satisfy $0<\alpha_2 \leq \pi$, $0 \leq \alpha_1 < \pi$. Consequently, $\dot{\alpha}_2>0$, or $\alpha_2$ is strictly increasing whenever the agent is in the region $\mathbf{IIa}$.
+\end{itemize}
+From \emph{(i)} and \emph{(ii)}, it follows that there must be a finite time $t^*$ such that $\alpha_2 = 180^o$ or the agent is in $A_1A_3$.
+\item Step 3: When the agent is inside $\mathbf{IIb}$, by similar arguments, the angle $\alpha_2$ strictly increases. This implies that only two cases are possible: \emph{(a)} the agent enters the triangle through beacon $A_3$, or \emph{(b)} the agent enters region $\mathbf{Ia}$ or $\mathbf{IIa}$. If \emph{(a)} happens, then \textit{Lemma \ref{Lem:Prob2_get_inside}} is immediately proved. If \emph{(b)} happens, then by using result from Step 2, we obtain the same result. Since the other cases can be treated similarly, we conclude that \textit{Lemma \ref{Lem:Prob2_get_inside}} is true.
+\end{itemize}
+\end{proof}
+\begin{corollary}\label{Prob_2:get_outside}
+If the agent is inside the triangular $A_1A_2A_3$, under the control law 
+\begin{equation}
+\dot{p} = -\hat{u}_1 + \hat{u}_2 + \hat{u}_3
+\end{equation}
+the agent moves outside the triangular through the segment $A_2A_3$.
+\end{corollary}
+The proof of Corollary \ref{Prob_2:get_outside} is similar to \ref{Lem:Prob2_get_inside}. Symmetrically, the agent will get outside the triangular region under $\dot{p} = \hat{u}_1 - \hat{u}_2 + \hat{u}_3$ and $\dot{p} = \hat{u}_1 + \hat{u}_2 - \hat{u}_3$ through the segment $A_1A_3$ and $A_1A_2$ respectively.
+
+Combining \eqref{eq:Prob2_ctrlLawG} and \eqref{eq:Prob2_control_law_out}, we have a control law to reach almost points inside the triangular $A_1A_2A_3$, regardless of the agent's initial position.
+\begin{equation}
+\dot p = \left\{ {\begin{array}{*{20}{c}}
+  {{{\hat u}_1} + {\hat{u}_2} + {\hat{u}_3}, \quad \text{when the agent is outside triagular} A_1A_2A_3} \\ 
+  {({\alpha _1} - \alpha _1^*){{\hat u}_1} + ({\alpha _2} - \alpha _2^*){\hat{u}_2} + ({\alpha _3} - \alpha _3^*){\hat{u}_3}, \quad , \quad \text{otherwise.}} 
+\end{array}} \right.\
+\label{eq:Prob2_entire_control_law}
+\end{equation}
+where $\hat{u}_i = \frac{p_i-p}{\|p_i-p\|}, i = 1, 2, 3$.
+
+\subsection{Reaching a point outside the triangular}
+In previous sections, we have developed a control law that can drive an agent to any desired position inside the triangular region $A_1A_2A_3$. In this section, our goal is to extend the control law to reach points outside this region. However, we have the following remarks:
+\begin{remark}\label{Prob_2:remark1}
+Using only pure bearing measurements, the agent cannot differentiate $\mathbf{Ia}$ from $\mathbf{Ib}$, $\mathbf{IIa}$ from $\mathbf{IIb}$ and $\mathbf{IIIa}$ from $\mathbf{IIIb}$.
+\end{remark}
+For example, when $\alpha_2 = \alpha_{1} + \alpha_{3}$, the agent can induce that it is outside the triangular, in region $\mathbf{IIa}$ or $\mathbf{IIb}$. However, it does not know exactly whether its position is in
+$\mathbf{IIa}$ or $\mathbf{IIb}$.
+\begin{remark}\label{Prob_2:remark2}
+If the desired position is outside the triangular $A_1A_2A_3$, there may be two points satisfy $\alpha_1^*, \alpha_2^*, \alpha_3^*$. Moreover, the points are in different regions.
+\end{remark}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.8]{prob2_counter_example}
+\caption{Both $B_1$ and $B_2$ satisfy $\alpha_1^* = 60^o, \alpha_2^*= 30^o, \alpha_3^*= 30^o$.}
+\label{fig:Prob2_counter_example}
+\end{center}
+\end{figure}
+An example is given in \textit{Fig. \ref{fig:Prob2_counter_example}}, the beacons are $A_1(0,0), A_2(1,0), A_3(0,1)$. We can see that both $B_1(\sqrt{2}\sin 75^o,\sqrt{2}\sin 75^o) \in \mathbf{Ia}$ and $B_2(-\sqrt{2}\sin 15^o, -\sqrt{2}\sin 15^o ) \in \mathbf{Ib}$ satisfy $\alpha_1^* = 60^o, \alpha_2^*= 30^o, \alpha_3^*= 30^o$. From \textit{Remark \ref{Prob_2:remark1}}, we conclude that the agent cannot differentiate $B_1$ and $B_2$. This example shows that we cannot extend the control law to entire plane using only pure bearing measurements. Therefore, we will restrict the desired position to regions $\mathbf{Ia}, \mathbf{IIa}$ and $\mathbf{IIIa}$. Consider the following problem:
+\begin{problem}\label{Prob2_1}
+If $p^* \in \mathbf{Ia}$ ($\mathbf{Ib}$ or $\mathbf{Ic}$) and initially the agent is inside the same region, design a control law to move the agent to the desired position.
+\end{problem}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=5in]{figure/Prob2_illus_extend}
+\caption{Illustration of \textit{Problem \ref{Prob2_1}}: $p^* \in \mathbf{Ia}$.}
+\label{Prob2_prb2_1}
+\end{center}
+\end{figure}
+Without loss of generality, consider $p^* \in \mathbf{Ia}$ and the initial position of the agent is in that region. The goal is equivalent to design a control law such that $ \alpha_1 \rightarrow \alpha_1^*$, $ (\pi - \alpha_2) \rightarrow (\pi - \alpha_2^*)$ and $ (\pi - \alpha_3) \rightarrow (\pi - \alpha_3^*)$.
+Similar to \textit{Problem \ref{Prob2}}, we propose the following control law:
+\begin{equation}\label{eq:Prob2_control_law_outside}
+u =({\alpha_{1}^*} - \alpha_{1})\hat u_{1}+({\alpha_{2}^*} - \alpha_{2})\hat u_{2}+({\alpha_{3}^*} - \alpha_{3})\hat u_{3}
+\end{equation}
+\begin{theorem}\label{theo:Prob2_control_law_outside}
+If $p^* \in \mathbf{Ia}$ and initially the agent is inside the same region, under \eqref{eq:Prob2_control_law_outside}, the agent asymptotically reaches the desired position.
+\end{theorem}
+\begin{proof}
+The proof is similar to the proof of Theorem \ref{theo:Prob2_stability}.
+\end{proof}
+All in all, the algorithm to reach almost desired location inside the triangular and regions $\mathbf{Ia}-\mathbf{IIIa}$ is given in the following flowchart
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=1]{figure/Prob2_flowchart}
+\caption{Algorithm to navigate all points inside triangular and regions $\mathbf{Ia}-\mathbf{IIIa}$.}
+\label{fig:Prob2_flowchart}
+\end{center}
+\end{figure}
+\section{Simulations}
+\begin{flushleft}
+\textbf{Simulation 1}: Consider three beacons located at $A_1(-1;0), A_2(4;0)$ and $A_3(0;5)$ and desired position are given by three desired angles $\alpha_1^*=\alpha_2^*=\alpha_3^*= 2\pi/3$. We simulate control law \eqref{eq:Prob2_ctrlLawG} for different initial positions of the agent inside the triangular.
+\end{flushleft}
+
+The trajectories of the agent under the navigation law \eqref{eq:Prob2_ctrlLawG} corresponding to different initial positions are shown in Fig. \ref{fig:Prob2_sim1a}.
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=5in]{figure/Prob2_sim1.png}
+\caption{Trajectories under control law \eqref{eq:Prob2_ctrlLawG}.}
+\label{fig:Prob2_sim1a}
+\end{center}
+\end{figure}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=5in]{figure/Prob2_sim1b.png}
+\caption{Angle errors when initial position of the agent is $(2.5;1.5)$.}
+\label{fig:Prob2_sim1b}
+\end{center}
+\end{figure}
+Simulation results show that the agent will eventually reach the desired destination. Consider the dynamics of the error angles $e_k$ ($k=1,2,3$) when the agent's initial position is $(2.5;1.5)$. As shown in Fig. \ref{fig:Prob2_sim1b}, $e_k \longrightarrow 0$ as $t\longrightarrow \infty$. This result agrees with our analysis.
+\begin{flushleft}
+\textbf{Simulation 2} In this simulation, the beacons' positions and desired position $p^*$ are kept as Simulation 1. However, the initial position of the agent is outside the triangular region. The control law \eqref{eq:Prob2_control_law_outside} is applied. 
+\end{flushleft}
+
+The simulation results are shown in Fig. \ref{fig:Prob2_sim2}. The agent reaches desired position for different initial positions outside the triangular $A_1A_2A_3$.
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=5.5in]{figure/Prob2_sim2}
+\caption{Trajectories under control law \eqref{eq:Prob2_control_law_outside}.}
+\label{fig:Prob2_sim2}
+\end{center}
+\end{figure}
+
+\begin{flushleft}
+\textbf{Simulation 3} In this simulation, the beacons' positions are the same as in Simulation 1. The desired position is in region $\mathbf{IIa}$ and satisfies $\alpha_1^*=\alpha^*_3=30^o, \alpha_2^* = 60^o$. It is easy to check that $\alpha_1^*+\alpha^*_3=\alpha_2^*$. The navigation algorithm given in the flowchart in \textit{Fig. \ref{fig:Prob2_flowchart}} is used to control the agent. We simulate with different initial positions of the agent.
+\end{flushleft}
+
+The results are shown in \textit{Fig. \ref{fig:Prob2_sim3}}. In all cases, the agent reaches $p^*$. A typical trajectory consists of three parts: moving inside triangular, getting to the region $\mathbf{IIa}$, and reaching to $p^*$. Note that even if initially the agent is in the region $\mathbf{IIa}$, since the agent does not know whether it is in $\mathbf{IIa}$ or $\mathbf{IIb}$ it still needs to move inside triangular first. This is a drawback of the algorithm resulted from the insufficient of measurements.
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=5.5in]{figure/Prob2_sim3}
+\caption{Trajectories under the algorithm in flowchart \eqref{fig:Prob2_flowchart}.}
+\label{fig:Prob2_sim3}
+\end{center}
+\end{figure}
+
+
+\chapter{The Fermat-Weber location problem in single~integrator dynamics using only local bearing angles}\label{Chap:Result_3}
+\section{Introduction}
+The Fermat--Weber location problem (FWLP) can be stated as follows:
+\begin{problem}\cite{brimberg1995}
+Let $N$ different points $a_1, ..., a_N$ be given in $n$ dimensional space $\mathbb{R}^n$, together with positive real weights $w_i>0, i=1 \ldots N$. Find a point $x \in \mathbb{R}^n$, where the weighted sum of Euclidean distances to these points is minimal. In other words, we want to minimize the following unconstrained Weber function
+\begin{equation}
+f:\mathbb{R}^n \mapsto \mathbb{R}: x \mapsto f(x) = \sum\limits_{i = 1}^N {{w_i}{r_i}}  = \sum\limits_{i = 1}^N {{w_i}\| {{a_i} - x} \|_2} .
+\end{equation}
+with regard to $x$, where $({a_i} - x)$ is the vector going from $x$ to $a_i$, and ${r_i}$ is the Euclidean distance between $x$ and $a_i$
+\[{r_i} = {\| {a_i - x} \|_2} = \sqrt {\sum\limits_{k = 1}^n {{(a_{ik} - x_{ik})^2}} }. \]
+\label{FWLP}
+\end{problem}
+
+The originator of this problem is usually attributed to Fermat \cite{kuhn1973}. The simplest version, which was posed by Fermat in seventeenth century, is ``Determine a point from which the sum of the distances to the three vertices of a triangle is smallest''. The extensions to a larger number of vertices as well as dimensions had attention from many well-known mathematicians, such as Gauss, Simpson, and Steiner. The \textit{Problem \ref{FWLP}} is usually mentioned with Alfred Weber, a Germany economist. In Weber's work, he considered a problem of finding the location for a factory that minimizes the weighted distance sum to a single source and two different markets. That problem can be completely solved by a simple geometry. However, in general, there is no geometrical method to solve the problems with more than five vertices. There have been attempts to solve the Weber problem by nongeometric methods. A physical method using a mechanical device called Varignon frame to seek for the minimum point was described by Lam\'{e} and Clapeyron  \cite{franksen1989}. The physical methods, however, can only be applied in the cases of two or three dimensions. The most well-known solution is a numerical method named after Endr\'{e} Weiszfeld, a Hungarian mathematician. Weiszfeld gave proofs for the optimality conditions and described his numerical method in \cite{weiszfeld1937}.
+
+In this chapter, we present a bearing-only control law that steers an autonomous agent to the solution of the FWLP. Using Lyapunov stability theory, we will prove that the agent globally asymptotically reaches the destination by using only bearing measurements. We also consider an extension when the beacons are not stationary.
+
+\section{Algorithm to reach the solution when all beacons are stationary}
+\subsection{Problem Formulation}
+Consider a system consisting of $N$ stationary beacons and an autonomous agent. The beacons are located at $a_i \in \mathbb{R}^n, i = 1, \ldots, N$. The agent is governed by the single integrator dynamics:
+\begin{equation}
+\dot{x} = u,
+\label{eq:Prb_3_model}
+\end{equation}
+where $x = [x_1 \ldots x_n]^T$ and $ u=[u_1 \ldots u_n]^T \in \mathbb{R}^n$ are the position and the control input respectively. The agent can measure only the bearing to the $N$ beacons and uses this information in the control input. Assuming that the agent has $N$ weighting parameters $w_1, w_2, \ldots, w_N > 0$, we can state the main problem as follows:
+\begin{problem}
+Given the system (\ref{eq:Prb_3_model}), design a bearing-only control law that drives the agent to the minimum point of the Weber function \[f(\mathbf{x}) = \sum\limits_{i = 1}^N {{w_i}{r_i}}  = \sum\limits_{i = 1}^N {w_i} \| {a_i - x} \|. \]
+\label{pr:2}
+\end{problem}
+
+The existence and uniqueness of the solution of FWLP is characterized in the following lemma: 
+\begin{lemma}\label{lem:existence}\cite[\textit{Theorem 1}]{plastria2011}
+ There exists a unique point $x^*$ minimizing $f$. In other words, there is an $x^* \in \mathbb{R}^n$, such that $f(x^*) < f(x)$ for any point $x \in \mathbb{R}^n$ different from $x^*$. This minimum point is characterized by the following optimality conditions
+\begin{enumerate}
+\item If there exists a point $x^*$, different from all $a_i$, $i = 1,\ldots, N$, for which
+\begin{equation}
+\sum \limits_{i = 1}^N w_i \hat{u}(x^* - a_i)  = 0,
+\label{eq:equib_pt1}
+\end{equation}
+ then this $x^*$ is the minimum point.
+\item If for some $k \in N$ we have 
+\begin{equation}
+\| \sum \limits_{i = 1; i \neq k}^N {w_i \hat{u}(a_k - a_i)}  \| \leq w_k,
+\label{eq:equib_pt2}
+\end{equation}
+then this $a_k$ is the minimum point.
+\end{enumerate}
+\end{lemma}
+
+To solve the \textit{Problem~\ref{pr:2}}, we propose the following control law
+\begin{equation}
+\dot{x}(t) = u(t),
+\label{eq:Prop_Alg}
+\end{equation}
+where
+\begin{equation}
+u(t) =
+  \begin{cases}
+   \sum\limits_{i = 1}^N {w_i} \hat {u}(a_i - x(t)) & \text{if } x(t) \neq a_i,
+   \forall i = 1, \ldots, N,   \\
+   \sum\limits_{i = 1, i \neq k}^N {w_i} \hat {u}(a_i - x(t))  & \text{if } x(t) = a_k 
+    \text{and (\ref{eq:equib_pt2}) does not hold},\\
+   0  & \text{if } x(t) = a_k \text{ and (\ref{eq:equib_pt2}) holds},
+  \end{cases}
+  \label{eq:cntrl}
+\end{equation}
+The control law (\ref{eq:cntrl}) uses only the information of $N$ bearing measurements together with $N$ positive real weights $w_i,  i = 1, \ldots, N$. When $x(t) \neq a_i,  \forall i = 1, \ldots, N,$, the control input $u(t)$ is continuous and at almost all points it makes the gradient of the Weber function to be negative at $x(t)$. Note that in \cite{cooper1981}, the authors had proposed a discrete gradient algorithm in a two dimensional space. In the following analysis, we will prove that under our proposed control law, the agent will reach to the desired point.
+
+\subsection{Stability analysis}
+First, we determine the equilibrium points of the system (\ref{eq:Prop_Alg})--(\ref{eq:cntrl}). 
+\begin{lemma}
+The system (\ref{eq:Prop_Alg})--(\ref{eq:cntrl}) has a unique equilibrium point. This equilibrium  is the solution of the FWLP.
+\label{lem:equil}
+\end{lemma}
+\begin{proof}
+Since the equilibrium point(s) satisfies $\dot{x} (t) = 0$, or equivalently, $u(t) = 0$, we consider the following two cases:
+\begin{itemize}
+\item If there exists a point $x^*$, different from all $a_i$, $i = 1,\ldots, N$, for which
+\[
+\sum \limits_{i = 1}^N w_i \hat{u}(x^* - a_i)  = 0,
+\]
+then from the \textit{Lemma \ref{lem:existence}}, it follows that $x^*$ is unique. Moreover, at $x = x^*$, we have $\dot{x}(t) = 0$. Thus, in this case, ${x} = {x}^*$ is the unique equilibrium point of the system (\ref{eq:Prop_Alg})--(\ref{eq:cntrl}).
+
+\item If for some $k \in N$ we have 
+\[
+\| \sum \limits_{i = 1; i \neq k}^N {{w_i} \hat{u}(a_k - a_i)}  \| \leq w_k,
+\]
+then $a_k$ is the global minimum of $f$ based on \textit{Lemma \ref{lem:existence}}. Thus, $a_k$ is also the unique point that satisfies (\ref{eq:equib_pt2}). Based on (\ref{eq:cntrl}), at $x = a_k$, we have $\dot{x} (t) = 0$. As a result, $x = a_k$ is the unique equilibrium point in this case.
+\end{itemize}
+
+From both cases, we can conclude that there exists a unique equilibrium point of the system (\ref{eq:Prop_Alg})--(\ref{eq:cntrl}).
+\end{proof}
+
+
+Next, we analyze the stability of the system (\ref{eq:Prop_Alg})--(\ref{eq:cntrl}) by using Lyapunov stability theory. Based on \textit{Lemma \ref{lem:existence}}, in all cases, there exists a unique point $x^*$ that minimizes the Weber function. Define the distance sum at $x^*$ by $K = \sum \limits_{i=1}^N w_ir_i^*=\min \limits_{x} \sum \limits_{i=1}^N w_ir_i(t)$. Because $a_i, i = 1, \ldots , N$ are fixed, $K$ is a constant. Consider the following Lyapunov candidate function 
+\[ V(t) = \sum \limits_{i=1}^N w_ir_i(t) - K. \]
+
+It is clear that $V$ is continuous, globally Lipschitz and continuously differentiable almost everywhere except at $a_i, i = 1,\ldots, N$. Due to the definition of $K$, we always have $V(t) \geq 0$. Moreover, $V = 0$ if and only if  $ \sum \limits_{i=1}^N w_ir_i(t) = K $. Thus, it follows from \textit{Lemma \ref{lem:existence}} that $V = 0$ if and only if $x$ is the unique solution of the FWLP. Therefore, $V$ is positive definite. We now state the main theorem:
+
+\begin{theorem}
+The equilibrium point of (\ref{eq:Prop_Alg})--(\ref{eq:cntrl}) is globally asymptotically stable; moreover, it solves the FWLP.
+\label{theo2}
+\end{theorem}
+\begin{proof}
+We consider two cases:
+\begin{itemize}
+\item Case 1: If there is no beacon satisfying the condition (\ref{eq:equib_pt2}), then from the \textit{Lemma \ref{lem:equil}}, (\ref{eq:Prop_Alg})--(\ref{eq:cntrl}) has an equilibrium point $x^*$ such that  
+\[\sum \limits_{i = 1}^N w_i \hat{u}(x^* - a_i)  = 0.\]
+When $x \neq a_i, i = 1, \ldots, N$, the $j$-th partial derivative of $V$ is
+\[\frac{{\partial V}}{{\partial {x_j}}} = \sum\limits_{i = 1}^N {{w_i}} \frac{{{x_j} - {a_{ij}}}}{{\sqrt {\sum\limits_{j = 1}^n {{{\left( {{x_j} - {a_{ij}}} \right)}^2}} } }}.\]
+Moreover, from (\ref{eq:cntrl}), the $j$-th entry of $\dot{x}$ is
+\[{\dot x}_j = -\sum\limits_{i = 1}^N {{w_i}} \frac{{x_j} - a_{ij}}{\sqrt {\sum\limits_{j = 1}^n {{{\left( {{x_j} - {a_{ij}}} \right)}^2}} } }.\]
+It follows that
+\begin{equation}
+\dot V = \sum\limits_{j = 1}^n \frac{\partial V}{\partial {x_j}} {\dot x}_j =  - \sum\limits_{j = 1}^n \left( {\sum\limits_{i = 1}^N {{w_i}} \frac{{x_j} - a_{ij}}{\sqrt {\sum\limits_{j = 1}^n {{\left( {{x_j} - {a_{ij}}} \right)^2}} } }} \right) ^2 \leq 0
+\label{eq:neg_Lyap_func}
+\end{equation}
+The equality in (\ref{eq:neg_Lyap_func}) happens if and only if 
+\begin{equation}
+\sum\limits_{i = 1}^N {{w_i}} \frac{{{x_j} - {a_{ij}}}}{{\sqrt {\sum\limits_{j = 1}^n {{{\left( {{x_j} - {a_{ij}}} \right)}^2}} } }}=0,
+\label{eq:Vdot1}
+\end{equation}
+for $\forall j = 1, ..., n$. The condition (\ref{eq:Vdot1}) is equivalent to 
+\[{-\sum\limits_{i = 1}^N {{w_i}\frac{a_i - x(t)}{{\| {a_i - x(t)} \|}}} }=0,\] and it is satisfied only at the equilibrium point of (\ref{eq:Prop_Alg})--(\ref{eq:cntrl}). On the other hand, when $x(t) \equiv a_k$, because (\ref{eq:equib_pt2}) does not hold, we have
+\begin{equation}
+\dot V = \sum\limits_{j = 1, j \neq k}^n \frac{\partial V}{\partial {x_j}} {\dot x}_j  =  - \sum\limits_{j = 1, j \neq k}^n \left( {\sum\limits_{i = 1, j \neq k}^N {{w_i}} \frac{{x_j} - a_{ij}}{\sqrt {\sum\limits_{j = 1, j \neq k}^n {{\left( {{x_j} - {a_{ij}}} \right)^2}} } }} \right) ^2 < 0,
+\end{equation}
+which means that the agent will not stay at $a_k$. Thus, $\dot{V}=0$ if and only if $x \equiv x^*$, and we can conclude that $\dot{V}$ is negative definite.
+\item Case 2: If there is a beacon $a_k$ satisfying the condition (\ref{eq:equib_pt2}), then by a similar analysis, we have $\dot{V} \leq 0$ at all points and $\dot{V} = 0$ if and only if $x \equiv a_k$.
+\end{itemize}
+
+In both cases, since $V$ is positive definite and $\dot{V}$ is negative definite, from Lyapunov stability theory \cite{khalil1996}, the equilibrium point of (\ref{eq:Prop_Alg})--(\ref{eq:cntrl}) is globally asymptotically stable. Furthermore, this equilibrium point is the solution of the FWLP.
+\end{proof}
+\section{Algorithm to reach the solution with moving beacons}
+\subsection{Problem formulation and proposed control law}
+In this section, using input-to-state stability (ISS) theory for cascade systems, we consider a scenario when the beacons are moving to their destinations and the agent wants to reach the point that minimizes the weighted distance sum to these beacons. Suppose that the motions of $N$ moving reference agents are governed by the following dynamic equations
+\begin{equation}
+\dot{a}_i(t) =  - a_{i}(t) + a^{*}_i, \quad \forall i = 1, \ldots, N.
+\label{dyn_equ}
+\end{equation}
+where $a^{*}_i$ is the target position of the agent $a_{i}$. Consider another agent with the single integrator model (\ref{eq:Prb_3_model}). This agent has only bearing measurements with regard to the $N$ moving reference agents.
+\begin{problem}\label{Prob_3}
+Given $N$ reference agents moving under (\ref{dyn_equ}), design a control law that drives the agent to the point that minimizes the Weber function
+ \[ f(t) = \sum\limits_{i = 1}^N {{w_i}{r_i}(t)}  = \sum\limits_{i = 1}^N {w_i} \| {a_i^* - x(t)} \|, \quad \text{as } t \rightarrow \infty. \]
+\end{problem}
+Taking a change of variables 
+\[\tilde a_i(t) = a_i^* - a_i(t), \quad \forall i = 1, \ldots, N,\]
+the motions of the moving beacons are characterized by the following equations
+\begin{equation}
+\dot{\tilde a}_i(t) =  - {{\tilde a}_i}(t)
+\label{dyn_equ1}
+\end{equation}
+It is obviously that the origin of (\ref{dyn_equ1}) is exponentially stable \cite{oh2014_2} or equivalently, the references exponentially reach to $a_i^*, i = 1, \ldots, N$ under (\ref{dyn_equ}). We propose the following control law to solve the \textit{Problem \ref{Prob_3}}:
+\begin{equation}
+u(t) =
+  \begin{cases}
+   \sum\limits_{i = 1}^N {w_i} \hat {u}(a_i(t) - x(t)) & \text{if } x(t) \neq a_i(t), \forall i = 1, \ldots, N,   \\
+   \sum\limits_{i = 1, i \neq k}^N {w_i} \hat {u}(a_i(t) - x(t))  & \text{if } x(t) = a_k(t)  \text{ and (\ref{eq:equib_pt2}) does not hold},\\
+   0  & \text{if } x(t) = a_k(t)  \text{ and (\ref{eq:equib_pt2}) holds}.
+  \end{cases}
+  \label{eq:cntrl1}
+\end{equation}
+
+Note that when the $N$ references are fixed, the control law (\ref{eq:cntrl1}) becomes (\ref{eq:cntrl}) and the \textit{Problem \ref{Prob_3}} becomes \textit{Problem \ref{pr:2}}.
+
+\subsection{Stability analysis} 
+The system of $N$ moving references and the agent can be seen as a cascade system. We can now state the main theorem of this section
+\begin{theorem}
+The equilibrium point of the cascade system (\ref{dyn_equ})--(\ref{eq:cntrl1}) is locally input-to-state stable.
+\end{theorem}
+\begin{proof}
+Consider the unforced system:
+\begin{equation}
+\dot{x}(t) = u(t) \vert_{a_i(t) = a_i^*, \forall i = 1, \ldots, N.}
+\label{eq:Prb3_unforced_sys}
+\end{equation}
+When all beacons are fixed at the desired locations, based on \textit{Lemma~\ref{lem:equil}}, there exists a unique equilibrium point of system (\ref{eq:Prb3_unforced_sys}). Moreover, this equilibrium point is asymptotically stable as a result of \textit{Theorem \ref{theo2}}. It follows that there exists a neighborhood of the equilibrium point such that (\ref{eq:Prb3_unforced_sys}) satisfies all conditions of \textit{Lemma \ref{theo:liss}}; thus, we conclude that the unforced system is locally ISS.
+
+Moreover, the system (\ref{dyn_equ}) is exponentially stable \cite{oh2014_2}. Therefore, the cascade system (\ref{dyn_equ})--(\ref{eq:cntrl1}) satisfies conditions of \textit{Lemma \ref{theo:cascade}} and the equilibrium point of this system is locally asymptotically stable.
+\end{proof}
+
+\section{Simulations}
+\label{section_simulation}
+We conduct three simulations to verify the algorithms proposed in the previous sections. 
+\begin{flushleft}
+\textbf{Simulation 1}
+\end{flushleft}
+
+There are six beacons located on the same plane in $\mathbb{R}^3$: $a_1 = (0, 0, 0)^T, a_2 = (3, -1, 0)^T$, $a_3 = (6, 1, 0)^T$, $a_4 = (5, 5, 0)^T$, $a_5 = (1, 4, 0)^T$ and $a_6 = (-3, 2, 0)^T$. The weights are $w_1 = w_2 = \ldots = w_6 = 1$. We simulate with the following three different initial agents' locations: $x(0)= (4, 6, 0)^T, (3, -1, 0)^T$ and $(5, 3, 1)^T$. \textit{Fig.~\ref{fig:sim1a}} shows the trajectories of the agent and \textit{Fig.~\ref{fig:sim1b}} shows the Weber function for each initial state.
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=12.5cm]{HexFWLPb.eps}
+\caption{Simulation 1: The trajectories of agents (depicted by green, blue, and red lines) converge to the point $(1.8365, 1,6536, 0)^T$ in all three cases.}
+\label{fig:sim1a}
+\end{center}
+\end{figure}
+
+\begin{figure}[!htb]
+\begin{center}
+\includegraphics[width=12.5cm]{Weber_func1.eps}
+\caption{Simulation 1: The value of Weber function according to the position of agent.}
+\label{fig:sim1b}
+\end{center}
+\end{figure}
+
+\begin{flushleft}
+\textbf{Simulation 2}
+\end{flushleft} 
+
+The six beacons are located at the same positions as in \textit{Simulation 1}. However, the sum weight are $w_1 = 5$, $w_2 = \ldots = w_6 = 1$. It is easy to see that the point $\mathbf{a}_1$ satisfies the condition (\ref{eq:equib_pt2}). We simulate with the same initial positions of the agent as in the previous simulation. Simulation results are shown in \textit{Fig.~\ref{fig:simu2a}} and \textit{Fig.~\ref{fig:simu2b}}.
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=12.5cm]{HexFWLP2.eps}
+\caption{Simulation 2: The trajectories of agents (depicted by green, blue, and red lines) converge to $\mathbf{a}_1$ in all three cases.}
+\label{fig:simu2a}
+\end{center}
+\end{figure}
+
+\begin{figure}[!htb]
+\begin{center}
+\includegraphics[width=12.5cm]{Weber_func2.eps}
+\caption{Simulation 2: The value of Weber function according to the position of agent.}
+\label{fig:simu2b}
+\end{center}
+\end{figure}
+
+\begin{flushleft}
+\textbf{Simulation 3}
+\end{flushleft} 
+
+In this simulation, there are four beacons in $\mathbb{R}^4$: $a_1 = (0, 0, 0, 0)^T$, $a_2 = (1, 2, 2, 1)^T$, $a_3 = (-2, 1, 0, -1)^T$, $a_4 = (0, 3, -3, 0)^T$. The weights are $w_1 = 1, w_2 = 2, w_3 = 0.5, w_4 = 1.5$. The initial positions are chosen to $(0, 0, 0, 0)^T$ and $(1, 1, 1, 1)^T$. In this case, since we are not able to visualize the trajectories of the agent, we give readers the agent's positions and the value of Weber function at some time instants in \textit{Table~\ref{table1}}. In all simulations, the time step was chosen to be $T_{step} = 10^{-3} sec$.
+
+\begin{table}[htb]
+\centering
+\caption{The agent's position and the corresponding value of Weber function}
+\label{table1}
+\begin{tabular}{c|c|c|c|c|c}
+\hline
+ 0s (init) & 1s & 5s & 10s & 20s & 50s \\ \hline
+\begin{tabular}[c]{@{}c@{}}$\mathbf{x}=\left[ {\begin{array}{*{20}{c}}0 \\0 \\0 \\0 \end{array}} \right]$\\  $f=13.9133$\end{tabular} & \begin{tabular}[c]{@{}c@{}}$\left[ {\begin{array}{*{20}{c}}0.1293 \\1.0438 \\0.1330 \\0.2026 \end{array}} \right]$\\  $12.6702$\end{tabular} & \begin{tabular}[c]{@{}c@{}}$\left[ {\begin{array}{*{20}{c}}0.3057 \\1.5637 \\0.1330 \\0.3870 \end{array}} \right]$\\  $12.4615$\end{tabular} & \begin{tabular}[c]{@{}c@{}}$\left[ {\begin{array}{*{20}{c}}0.3169 \\1.5743 \\0.4143 \\0.3970 \end{array}} \right]$\\  $12.4612$\end{tabular} & \begin{tabular}[c]{@{}c@{}}$\left[ {\begin{array}{*{20}{c}}0.3173 \\1.5746 \\0.4152 \\0.3974 \end{array}} \right]$\\ $12.4612$\end{tabular} & \begin{tabular}[c]{@{}c@{}}$\left[ {\begin{array}{*{20}{c}}0.3173 \\1.5746 \\0.4152 \\0.3974 \end{array}} \right]$\\ $12.4612$\end{tabular} \\ \hline
+\begin{tabular}[c]{@{}c@{}}$\mathbf{x}=\left[ {\begin{array}{*{20}{c}}1 \\2 \\3 \\4 \end{array}} \right]$\\  $f=26.1411$\end{tabular} & \begin{tabular}[c]{@{}c@{}}$\left[ {\begin{array}{*{20}{c}}0.7214 \\1.8623 \\1.4092 \\0.9994 \end{array}} \right]$\\  $12.9317$\end{tabular} & \begin{tabular}[c]{@{}c@{}}$\left[ {\begin{array}{*{20}{c}}0.3675 \\1.6167 \\0.5257 \\0.4422 \end{array}} \right]$ \\ $12.4672$\end{tabular} & \begin{tabular}[c]{@{}c@{}}$\left[ {\begin{array}{*{20}{c}}0.3191 \\1.5762 \\0.4191 \\0.3990 \end{array}} \right]$\\  $12.4612$\end{tabular} & \begin{tabular}[c]{@{}c@{}}$\left[ {\begin{array}{*{20}{c}}0.3173 \\1.5746 \\0.4152 \\0.3974 \end{array}} \right]$ \\ $12.4612$\end{tabular} & \begin{tabular}[c]{@{}c@{}}$\left[ {\begin{array}{*{20}{c}}0.3173 \\1.5746 \\0.4152 \\0.3974 \end{array}} \right]$\\  $12.4612$\end{tabular} \\ \hline
+\end{tabular}
+\end{table}
+%\end{figure}
+Table~\ref{table1} shows that in both cases, the agent will eventually reach to the point $\mathbf{p}=(0.3173, 1.5746, 0.4152, 0.3974)^T$ and the minimum of the Weber function is $f_{\min} = f(\mathbf{p})=12.4612$.
+
+\chapter{Experiments with quadrotor systems} \label{Chap:HW}
+\section{Hardware platform}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[height = 8cm]{figure/quadrotor.jpg}
+\caption{A quadrotor used in experiments}
+\label{fig:quadrotor}
+\end{center}
+\end{figure}
+For hardware experiments, we use the quadrotor platform as depicted in \textit{Fig.~\ref{fig:quadrotor}}. Quad rotor's navigation in the space is achieved by suitably controlling the roll, the pitch and the yaw angles. The individually control system of each quad rotor is not our interests in this thesis. Instead, we focus on controlling the quadrotors to work as a team. To be able to maneuver in the space, each quadrotor is armed with a GPS and a compass sensor. Further, the GPS data is compensated by an accelerometer and a gyro sensor. Consequently, the quad rotor's position's accuracy is given within one meter. In this thesis, the local bearing vectors are obtained from the GPS measurements in two dimensional space. The bearing vectors are calculated from the latitude and the longitude data of each quad rotor and also its neighbors. The agent--agent and agent--computer communications are through Zigbee modules. We refer reader to \cite{kang2013} for more detailed description of quadrotor platform. 
+
+\section{Experiment 1: Angle-based control of directed acyclic formations with three \\leaders}
+\begin{flushleft}
+\textbf{Experiment Setup}
+\end{flushleft}
+
+There are four quadrotors in this experiment: three quadrotors are leaders and one is follower. 
+\begin{itemize}
+\item Each leaders has access to its own GPS data. From GPS data, the leader moves under control law \eqref{eq:Prb1_ctrlLeader}.
+\item The follower receives GPS data from leaders and calculates bearing vectors toward the leaders. The follower adopts the control law \eqref{eq:Prb1_ctrFollower1} which uses only those calculated bearing vectors.
+\item Goal: the three leaders are desired to make a equilateral triangle which its side is 11 meters. The followers' desired bearing vectors to the leaders are $(1,0), (\frac{\sqrt{3}}{2},\frac{1}{2})$ and $(\frac{\sqrt{3}}{2},\frac{-1}{2})$. 
+\item GPS positions from all agents are gathered by a computer.
+\end{itemize}
+
+\begin{flushleft}
+\textbf{Experiment Results}
+\end{flushleft}
+
+The experiment has been recorded and can be accessed from \url{http://www.youtube.com/watch?v=YDZRwPcnYoM&feature=youtu.be}.
+After processing the experiment data, we can plot the trajectories of four agents as in \textit{Fig.~\ref{fig:exp1a}}  and the three angles from the follower to the three leaders as in \textit{Fig.~\ref{fig:exp1b}}. We can also see effects of noise and error in GPS data in the quadrotors' trajectories. However, these effects are acceptable and the formation shape is still achieved.
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=1.1]{result_00091714_5834_trajectory}
+\caption{Experiment 1: Trajectories}
+\label{fig:exp1a}
+\end{center}
+\end{figure}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=1]{result_00091714_5834_angle}
+\caption{Experiment 1: Angles}
+\label{fig:exp1b}
+\end{center}
+\end{figure}
+
+\section{Experiment 2: Control of an agent using only bearing measurements with three stationary beacons}
+\begin{flushleft}
+\textbf{Experiment Setup}
+\end{flushleft}
+In this experiment, we also use four quadrotors. There are three quadrotors that used as the stationary beacons. Another quadrotor flies to desired position under control law \eqref{eq:Prob2_entire_control_law} which is inside the triangle formed by the beacons.
+The desired position is determined by three subtended angles $\alpha_1^*=\alpha_2^*=\alpha_3^*=120^o$. The video record of this experiment can be watched from \url{http://youtu.be/ZSpl6Wr-k54}.
+
+\begin{flushleft}
+\textbf{Experiment Result}
+\end{flushleft}
+The experimental results are depicted in \textit{Fig. \ref{fig:exp2a}} and \textit{Fig. \ref{fig:exp2b}}. In \textit{Fig. \ref{fig:exp2a}}, we can compare the theoretical trajectory with the experimental trajectory. The difference between two trajectories comes from differences between quadrotor's actual dynamics and the single integrator model that we assumed. However, the error between quadrotor's destination and the desired position is smaller than one meter, thus it is acceptable.
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.55]{result_00090114_1854_trajectory}
+\caption{Experiment 2: Trajectories}
+\label{fig:exp2a}
+\end{center}
+\end{figure}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=1]{result_00090114_1854_angles}
+\caption{Experiment 2: Angles' Error}
+\label{fig:exp2b}
+\end{center}
+\end{figure}
+
+As an observation in implementing bearing--only control laws: the longer the distances between the beacons (leaders) are, the smaller follower's position error we get. 
+
+\chapter{Conclusion} \label{Chap:conclusion}
+
+In this thesis, we present three problems. First, a formation control frameworks with three leaders and the other followers is introduced. The leaders have global information, while the followers use only three bearing measurements with regard to its three neighbors. In this framework, three leaders acts as stationary beacons for the first follower to reach its desired position and this follower its self acts as beacons for second followers and so on... Thus, the number of agents in the system can be extended  arbitrarily. We prove by mathematical induction and Input--to--State Stable theory that the desired formation shape is locally asymptotically achieved. Comparing to other bearing--only formation control frameworks, an advantage of our formation control strategy is the ability to change the scale of formation's shape. 
+
+Second, by introduce the notation of subtended bearing angles, we develop a bearing--only control law for single--integrator dynamics agent with three stationary beacons. We prove that the agent asymptotically reaches any desired points inside the triangle formed by the three beacons under this control law. Further, by adding region switching control laws, we present a navigation algorithm to reach almost points in four regions inside and outside the triangle.
+
+Lastly, we propose a bearing--only control law for a single--integrator agent to reach the minimum of the weighted distance sum from the agent to $N$ references, and thus solved the Fermat--Weber location problem in $n$--dimensional space. The bearing--only control law has been shown to be a gradient descent control law that steers the agent to the solution. We also extend the control law to a case when the references is not stationary and prove that local stability can be still achieved. To the best of our knowledge, this is the first analysis on the Fermat--Weber location problem with moving references.
+
+For all control laws presented in this thesis, we gives numerical simulations accordingly to verify our mathematical analyses. We also test the control laws presented in Chapter \ref{Chap:Result_1} and Chapter \ref{Chap:Result_2} by quadrotor platform. The experiment results agree with our analyses.
+
+There are several further research directions from this thesis's results. First, the leader--follower formation control architecture in this thesis has been studied only in two dimensional space and need to be extend to higher dimension. Moreover, collision avoidance between the agents is also a critical point that has not been investigated. Second, the control law in Chapter 2 depends a lot on bearing measurements. Thus, studying performance of the control law under environmental noise and uncertainties of beacons' positions is a practical topic. Third, if communication between agents are possible, we may reduce the number of stationary beacons. Exploring the cooperative navigation problem in such schemes is a possible research topic. Finally, we think that tracking the solution of Fermat--Weber location problem with moving beacons could have promising applications in the future. 
+
+
+%-----------------------------------------------------------------
+% This is the end of the main thesis body.
+
+%-----------------------------------------------------------------
+% Input the list of references.
+\bibliographystyle{IEEEtranS}
+\bstctlcite{IEEEexample:BSTcontrol}
+%\bibliography{MyBib}             % bib file to produce the bibliography
+\begin{thebibliography}{1}
+
+\bibitem{weiszfeld1937} {E. Weiszfeld}, {\em Sur le point pour lequel la somme des distances de $n$ points donn\'{e}es est minimum}, T\^{o}hoku Math. J. 43, 1937, pp.~355--386.
+
+\bibitem{miehle1958} {\sc W. Miehle}, {\em Link-length minimization in networks}, Oper. Res. Vol. 6, pp.~232--243
+
+\bibitem{kuhn1973} {\sc  H. Kuhn},
+{\em A note on Fermat's problem}, Math. Program., 4 (1973), pp.~98--107.
+
+\bibitem{cordellier1977} {\sc F. Cordellier and J. Ch. Fiorot}, {\em On the Fermat--Weber problem with convex cost functions}, Math. Program., 14 (1978), pp.~295-311.
+
+\bibitem{cooper1981} {\sc L. Cooper and N. Katz},
+{\em The Weber problem revisited}, Comp. \& Maths. with Appls. Vol. 7, pp.~ 225--234, 1981
+
+\bibitem{partridge1982} {\sc B. L. Partridge}, {\em The structure and function of fish schools}, Scientific American, 246 (6), 1982, pp.~114--123.
+
+\bibitem{chandra1989} {\sc R. Chandrasekaran and A. Tamir},
+{\em Open questions concerning Weiszfeld's algorithm for the Fermat--Weber location problem}, Math. Program. 44, pp.~293--295.
+
+\bibitem{franksen1989} {\sc O. I. Franksen and I. Grattan-Guinness}, {\em The earliest contribution to location theory? spatio-economic equilibrium with Lam\'{e} and Clapeyron, 1829}, Math. Comput. Simul., 31 (1989), pp.~195--220.
+
+\bibitem{biggs1993}
+{\sc N. Biggs}, \emph{Algebraic Graph Theory}, 2nd edition, Cambridge University Press, 1993.
+
+\bibitem{brimberg1995} {\sc J. Brimberg}, 
+{\em The Fermat--Weber location problem revisited}, Math. Program., 71 (1995), pp.~71--76.
+
+\bibitem{khalil1996}
+{\sc H. K. Khalil}, \emph{Nonlinear systems}, 2nd edition, Prentice-Hall, 1996.
+
+\bibitem{nickel1998} {\sc S. Nickel}, {\em Convex analysis}, U. Kaiserslautern, Kaiserslautern, Germany, 1998.
+
+\bibitem{vardi2001} {\sc Y. Vardi and C.-H. Zhang}, 
+{\em A modified Weiszfeld algorithm for the Fermat-Weber location problem}, Math. Program., Ser. A 90 (1995), pp.~559--566.
+
+\bibitem{brimberg2003} {\sc J. Brimberg}, {\em Further notes on convergence of the Weiszfeld algorithm}, Yugoslav J. Oper. Res. 13, No. 2, 2003, pp.~199--206.
+
+\bibitem{hiriart2001} {\sc J-B Hiriart-Urruty and C. Lemar\'{e}chal}, {\em Fundamentals of convex analysis}, Springer, 2001.
+
+\bibitem{weimerskirch2001} {\sc H. Weimerskirch, J. Martin, Y. Clerquin, P. Alexandre and S. Jiraskova} {\em Energy saving in flight formation}, Nature 413, Oct. 2001, pp.~697--698.
+%\bibitem{khalil2002} {\sc H. Khalil}, {\em Nonlinear systems}, 3rd ed., Prentice Hall, 2002.
+
+\bibitem{bekris2004} {\sc K. Bekris, A. Argyros, and L. Kavraki}, {\em Angle-Based Methods for Mobile Robot Navigation: Reaching the Entire Plane}, in Proc. of the 2004 Internat. Conf. on Robotics and Automation (ICRA), New Orleans, LA, 2004, pp.~2373?-2378.
+
+\bibitem{saber2007} {\sc R. Olfati-Saber, J. A. Fax and R. M. Murray}, {\em Consensus and Cooperation in
+Networked Multi-Agent Systems}, Proceedings of the IEEE, Vol. 95, No. 1, 2007, pp.~215--233.
+
+\bibitem{loizou2007} {\sc S. Loizou and V. Kumar}, {\em Biologically inspired bearing-only navigation and tracking}, in Proc. of the 46th IEEE Conf. on Decision and Control (CDC), New Orleans, LA, 2007, pp.~1386--1391.
+
+\bibitem{Yu2007} {\sc C. Yu and J. M. Hendrickx and B. Fidan and B. D. O. Anderson and V. D. Blondel}, {\em 
+Three and higher dimensional autonomous formations: Rigidity, persistence and structural persistence}, Automatica Vol. 43, 2007, pp.~387--402.
+
+\bibitem{Anderson2008} {\sc B. D. O. Anderson, C. Yu, B. Fidan and J. M. Hendrickx}, {\em Rigid graph control architectures for autonomous formations}, IEEE Control Systems Magazine Vol. 28, 2008, pp.~48--63.
+
+\bibitem{weiszfeld2009} {\sc E. Weiszfeld and F. Plastria},
+{\em On the point for which the sum of the distances to $n$ given points is minimum}, Ann. Oper. Res., Vol. 167, 2009, pp.~7--41.
+
+\bibitem{basiri2010}
+{\sc M. Basiri, A. N. Bishop, and P. Jensfelt}, {\em Distributed control of triangular formations with angle-only constraints}, Systems and Control Letters, vol. 59, no. 2, 2010, pp.~147--154.
+
+\bibitem{mesbahi2010}
+{\sc M. Meshbahi and Egerstedt}, {\em Graph Theoretic Methods in Multiagent Networks}, 2010.
+
+\bibitem{plastria2011}  {\sc F. Plastria},
+{\em The Weiszfeld Algorithm: Proof, Amendments, and Extensions}, in Foundations of Location Analysis, International Series  Oper. Res. Management Sci. Vol. 155, H. Eiselt, V. Marianov, ed., Springer New York, 2011, pp.~357--389.
+
+\bibitem{bishop2011}
+{\sc A. N. Bishop}, {\em Distributed bearing-only formation control with four agents and a weak control law}, \textit{Proceeding of the 9th IEEE International Conference on Control and Automation}, pp. 30-35, 2011.
+
+\bibitem{oh2011} {\sc K.-K. Oh, H.-S. Ahn}, {\em Formation control of mobile agents based on inter-agent distance dynamics}, Automatica, Vol. 47, No. 10, 2011, pp.~2306--2312.
+
+\bibitem{bishop2012}
+{\sc A. N. Bishop, T. H. Summers and B. D. O. Anderson}, {\em Control of triangle formations with a mix of angle and distance constraints}, in Proceedings of IEEE International Conference on Control Applications, 2012, pp.~825--830.
+
+\bibitem{eren2012}
+{\sc T. Eren}, {\em Formation shape control based on bearing rigidity}, International Journal of Control, Vol. 85, Issue 9,  pp.~1361--1379, 2012.
+
+
+\bibitem{oh2013survey}
+{\sc K.-K. Oh, M.-C. Park and H.-S. Ahn}, {\em A survey of multi-agent formation control}, 2013.
+
+\bibitem{Ye2013}
+{\sc M. Ye, B. D. O. Anderson and C. Yu}, {\em Multiagent Self-Localization Using Bearing Only Measurements}, 52nd IEEE Conference on Decision and Control, Florence, Italy, December, 2013.
+
+\bibitem{kang2013}
+{\sc S.-M. Kang}, {\em Distance-based Formation Control for Unmanned Multi-agent Systems with Moving Leader}, M.S. Thesis, School of Mechatronics, Gwangju Institute of Science and Technology, 2013.
+
+\bibitem{zhao2014}
+{\sc S. Zhao, F. Linb, K. Peng, B. M. Chen, and T. H. Lee}, {\em Distributed control of angle-constrained cyclic formations using bearing-only measurements}, \textit{Systems and Control Letters}, vol. 63, no. 1, pp.~12--24, 2014.
+
+\bibitem{oh2014_1} {\sc K.-K. Oh, Hyo-Sung Ahn}, {\em Formation control and network localization via orientation alignment}, IEEE Trans. on Automatic Control, Vol. 59, No. 2, Feb., 2014, pp.~540--545.
+
+\bibitem{oh2014_2} {\sc K.-K. Oh, Hyo-Sung Ahn}, {\em Distance-based undirected formations of single- and double-integrator modeled agents in n-dimensional space}, Int. J. Robust and Nonlinear Control, Vol. 24, No. 12, pp.~1809--1820, 2014.
+
+\bibitem{oh2014_3}
+{\sc K.-K. Oh, B.-Y. Kim, and H.-S. Ahn}, {\em Directed acyclic formation control of a group of autonomous agents with several leaders}, submitted.
+
+\bibitem{Deghat2014}
+{\sc M. Deghat, L. Xia, B. D. O. Anderson and Y. Hong}{\em Multi-target localization and circumnavigation by a single agent using bearing measurements}, Int. J. Robust Nonlinear Control, 2014.
+
+\bibitem{zelano2014}
+{\sc D. Zelazo, A. Franchi and P. R. Giordano}, {\em Rigidity Theory in SE(2) for Unscaled Relative Position Estimation using only Bearing Measurements}, European Control Conference (ECC), June 24-27, Strasbourg, France, 2014, pp.~2703--2708.
+
+\bibitem{trinh2014_1} {\sc M. H. Trinh, K.-K. Oh, and H.-S. Ahn}, {\em Angle-based control of directed acyclic formations with three-leaders}, in 2014 International Conference on Mechatronics (ICMC), Jinzhou, China, July, 2014.
+
+\bibitem{trinh2014_2} {\sc M. H. Trinh, K.-K. Oh, and H.-S. Ahn}, {\em Navigation using only bearing measurements}, accepted to CISDA, Hanoi, Vietnam, December 2014.
+
+\bibitem{trinh2014_3} {\sc M. H. Trinh and H.-S. Ahn}, {\em The Fermat--Weber location problem in single integrator dynamics using only local bearing angles}, submitted.
+
+
+\end{thebibliography}
+%-----------------------------------------------------------------
+% Acknowledgements
+% Insert the text between \begin{acknowledgements} and \end{acknowledgements}.
+% You can either write the abstract directly here or import a file using the \input command.
+\begin{acknowledgements}
+\thispagestyle{empty}
+
+
+\end{acknowledgements}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\chapter*{Acknowledgements}
+%\thispagestyle{empty}
+%I truly appreciate the help of my colleagues, advisor and family. This work would not have been possible without their support.
+
+
+%-----------------------------------------------------------------
+% Input the curriculum vitae.
+% You may add as many lines as you need using the syntax of the \item command shown below.
+%-----------------------------------------------------------------
+% \birthday{December}{4}{1981}
+% \birthplace{Seoul}
+% \addr{Seoul}
+
+% \vitae
+% \begin{education}{2cm}
+% \item[2000.3--2007.8] Electronic Communication Engineering, Chungju University. (B.S.)
+% \end{education}
+
+% Insert experience if you have.
+%\begin{experience}{2cm}
+%\item[1991.3--1995.2] Experience Experience Experience Experience Experience
+%\item[1997.3--1999.2] Experience Experience Experience Experience Experience
+%\end{experience}
+
+% Insert activity if you have.
+%\activity
+%Activity Activity Activity Activity Activity Activity Activity Activity
+%Activity Activity Activity Activity Activity Activity Activity Activity
+
+% Insert awards if you have.
+%\awards
+%Awards Awards Awards Awards Awards Awards Awards Awards Awards
+%Awards Awards Awards Awards Awards Awards Awards Awards Awards
+
+%-----------------------------------------------------------------
+% This is the end of the thesis.
+%
+\end{document}
