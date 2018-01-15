@@ -1,0 +1,266 @@
+%!TEX encoding = system 
+\documentclass[final]{gist}
+%\linespread{1}
+% The following packages can be found on http:\\www.ctan.org
+\usepackage{graphics} % for pdf, bitmapped graphics files
+\usepackage{subfig}
+\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+\usepackage{times} % assumes new font selection scheme installed
+\usepackage{amsmath,amssymb,mathrsfs}
+\usepackage{enumerate}
+\usepackage{theorem} % for \theorembodyfont
+\usepackage{cite}
+\usepackage{textcomp}
+%\usepackage[]{algorithm2e}
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup{labelsep=period} % change ':' to '.' in the figure-caption
+% 그림 하위 경로
+\graphicspath{{figure/}}
+
+
+% 수학 정리
+%\theorembodyfont{\upshape} % 정리를 로만체로 씀 required "theorem" package
+\renewcommand{\thefootnote}{\arabic{footnote}}
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{definition}[lemma]{Definition}
+\newtheorem{assumption}{Assumption}[chapter]
+\newtheorem{problem}{Problem}[chapter]
+\newtheorem{remark}[lemma]{Remark}
+\newtheorem{theorem}[lemma]{Theorem}
+\newtheorem{corollary}[lemma]{Corollary}
+\newtheorem{proposition}[lemma]{Proposition}
+%\newtheorem{corollary}{Corollary}[chapter]
+
+% proof environment
+\def\QED{\mbox{\rule[0pt]{1.3ex}{1.3ex}}}
+\def\proof{\noindent\hspace{2em}{\itshape Proof: }}
+\def\endproof{\hspace*{\fill}~\QED\par\endtrivlist\unskip}
+
+% For references name sorting
+\makeatletter
+\def\bstctlcite#1{\@bsphack
+\@for\@citeb:=#1\do{%
+\edef\@citeb{\expandafter\@firstofone\@citeb}%
+\if@filesw\immediate\write\@auxout{\string\citat
+ion{\@citeb}}\fi}%
+\@esphack}
+\makeatother
+
+
+\font\tenrm=cmtt10
+\input cap_c
+
+\input epsf
+\def\putepsf#1{\centering \parbox{14cm}{\epsfxsize = 14cm \epsfbox{#1}}}
+
+
+%-----------------------------------------------------------------
+% Department code list
+% IC - Information and Communications
+% MS - Materials Science and Engineering
+% ME - Mechanical Engineering
+% ES - Environmental Science and Engineering
+% LS - Life Science
+% Department code
+% Modify if you are not ME.
+\code{{PhD/}ME}
+
+%-----------------------------------------------------------------
+% Thesis title in English
+% Insert \titlebreak where lines are to be separated.  Do not use the LaTeX command '\\'.
+\etitle{Distributed Formation Control of Multi-agent Systems: Bearing-based Approaches and Applications}
+
+%-----------------------------------------------------------------
+% Thesis title in Korean
+
+% Insert \titlebreak where lines are to be separated.  Do not use the LaTeX command '\\'.
+
+%-----------------------------------------------------------------
+% Advisor's name in English without a position such as 'Prof.'.
+\advisor{Hyo-Sung Ahn}
+
+%-----------------------------------------------------------------
+% Advisor's name in Korean without a position such as 'Prof.'.
+\kadvisor{안효성}
+
+%-----------------------------------------------------------------
+% Co-advisor's name in English
+% In case there is no co-advisor, comment out the following line with a "%" in the front.
+%\coadvisor{Kwang-Kyo Oh}
+
+%-----------------------------------------------------------------
+% Name of the author in English
+\ename{Minh Hoang Trinh}
+
+%-----------------------------------------------------------------
+% Name of the author in Korean seperated with '{}'.
+\kname{Minh Hoang Trinh}
+%-----------------------------------------------------------------
+% Student ID of the author
+\studentid{20152062}
+
+%-----------------------------------------------------------------
+% The year of graduation (ex. 1999)
+\coveryear{2018}
+
+%-----------------------------------------------------------------
+% The date signed by the advisor.  The first is the month, second the date, and third the year.
+\advisorsigndate{May}{1}{2018}
+
+%-----------------------------------------------------------------
+% The date signed by the referees.  The first is the month, second the date, and third the year.
+\refereesigndate{May}{1}{2018}
+
+%-----------------------------------------------------------------
+% Names of the referees in English
+% For Master's thesis, input the names of the three referees (refereeA thru referee C) in full.
+% For Ph.D thesis, input the names of the five referees (refereeA thru referee E) in full.
+% For most cases, refereeA is the same as the advisor.
+\refereeA{Prof. Hyo-Sung Ahn}
+\refereeB{Prof. }
+\refereeC{Prof. }
+\refereeD{Prof. }%For Ph.D thesis, remove "%" in the front.
+\refereeE{Prof. }% For Ph.D thesis, remove "%" in the front.
+
+%-----------------------------------------------------------------
+% This is the beginning of the thesis.
+
+\dedication{\textit{\Large{Dedicated to my family.}}}
+
+
+
+\usepackage{hyperref}	
+\hypersetup{%
+colorlinks=false,
+pdfborder={0.5 0.5 0.5}
+}
+
+\begin{document}
+%-----------------------------------------------------------------
+% Abstract of the thesis in English.
+% Insert the abstract between \begin{eabstract} and \end{eabstract}.
+% You can either write the abstract directly here or import a file using the \input command.
+\begin{eabstract}
+This thesis studies formation control of multi-agent systems with bearing-based approaches. First, formations with two types of directed graphs  namely the leader-first follower and directed cycle are studied in detail. Second, some further results in designing bearing-only control laws are reported. Third, the multi-agent pointing consensus problem is formulated. Solution of this problem is proposed and proved to be effective. Finally, this thesis proposes and investigates the concept of consensus with matrix weights and their applications.
+\end{eabstract}
+
+
+%-----------------------------------------------------------------
+% Table of contents, list of tables and list of figures.
+% Use the \makecontents command to automatically generate the table of content
+\makecontents
+% In case there is no table, comment out the following line.
+\listtables
+% In case there is no figure, comment out the following line.
+\listfigures
+
+%-----------------------------------------------------------------
+% Input the thesis files written in LaTeX.
+% The \begin{document} command is not necessary here.
+% Refererence and vitae will follow the main thesis text.
+%-----------------------------------------------------------------
+% This is the beginning of the main thesis body.
+% Insert Chapter or section or subsection as many as you need.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introduction}
+\label{chap:Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DO NOT DELETE FOLLOWING TWO LINES! %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\section{Motivation}
+
+\section{Literature Review and Contributions}
+
+\section{Outline of the thesis}
+
+\chapter{Preliminaries}
+\label{chap:preliminaries}
+\section{Algebraic graph theory}
+
+\section{The bearing vector and the projection matrix}
+
+\section{Bearing rigidity theory}
+
+
+\chapter{Bearing-Based Control of Leader-First Follower Formations}
+\label{chap:lff}
+
+\chapter{Formations on Directed Cycles with Bearing-Only Measurements}
+\label{chap:cycle}
+
+%\chapter{Further Results on Bearing-Based Formation Control}
+%\label{chap:advances}
+
+\chapter{The Multi-Agent Pointing Consensus Problem}
+\label{chap:pointing}
+
+\chapter{Matrix-Weighted Consensus and Its Applications}
+\label{chap:mwc}
+
+\chapter{Summary and Future Directions}
+\label{chap:conclusion}
+
+
+%-----------------------------------------------------------------
+% This is the end of the main thesis body.
+
+%-----------------------------------------------------------------
+% Input the list of references.
+\bibliographystyle{IEEEtranS}
+\bstctlcite{IEEEexample:BSTcontrol}
+\bibliography{minh2018}             % bib file to produce the bibliography
+%-----------------------------------------------------------------
+% Acknowledgements
+% Insert the text between \begin{acknowledgements} and \end{acknowledgements}.
+% You can either write the abstract directly here or import a file using the \input command.
+\begin{acknowledgements}
+\thispagestyle{empty}
+
+
+\end{acknowledgements}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\chapter*{Acknowledgements}
+%\thispagestyle{empty}
+%I truly appreciate the help of my colleagues, advisor and family. This work would not have been possible without their support.
+
+
+%-----------------------------------------------------------------
+% Input the curriculum vitae.
+% You may add as many lines as you need using the syntax of the \item command shown below.
+%-----------------------------------------------------------------
+% \birthday{December}{4}{1981}
+% \birthplace{Seoul}
+% \addr{Seoul}
+
+% \vitae
+% \begin{education}{2cm}
+% \item[2000.3--2007.8] Electronic Communication Engineering, Chungju University. (B.S.)
+% \end{education}
+
+% Insert experience if you have.
+%\begin{experience}{2cm}
+%\item[1991.3--1995.2] Experience Experience Experience Experience Experience
+%\item[1997.3--1999.2] Experience Experience Experience Experience Experience
+%\end{experience}
+
+% Insert activity if you have.
+%\activity
+%Activity Activity Activity Activity Activity Activity Activity Activity
+%Activity Activity Activity Activity Activity Activity Activity Activity
+
+% Insert awards if you have.
+%\awards
+%Awards Awards Awards Awards Awards Awards Awards Awards Awards
+%Awards Awards Awards Awards Awards Awards Awards Awards Awards
+
+%-----------------------------------------------------------------
+% This is the end of the thesis.
+%
+\end{document}
